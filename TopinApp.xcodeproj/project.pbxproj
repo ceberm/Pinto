@@ -11,6 +11,11 @@
 		DB635B812676E353003E8F64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB635B802676E353003E8F64 /* ContentView.swift */; };
 		DB635B832676E356003E8F64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB635B822676E356003E8F64 /* Assets.xcassets */; };
 		DB635B862676E356003E8F64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB635B852676E356003E8F64 /* Preview Assets.xcassets */; };
+		DB69DFE62687C17B006F20A0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFE52687C17B006F20A0 /* Grid.swift */; };
+		DB69DFE82687C1AA006F20A0 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFE72687C1AA006F20A0 /* GridLayout.swift */; };
+		DB69DFEA2687C204006F20A0 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */; };
+		DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */; };
+		DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFED2687CB4A006F20A0 /* PintoGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,11 @@
 		DB635B822676E356003E8F64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB635B852676E356003E8F64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB635B872676E356003E8F64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB69DFE52687C17B006F20A0 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		DB69DFE72687C1AA006F20A0 /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoCardGame.swift; sourceTree = "<group>"; };
+		DB69DFED2687CB4A006F20A0 /* PintoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +64,14 @@
 			children = (
 				DB635B7E2676E353003E8F64 /* TopinAppApp.swift */,
 				DB635B802676E353003E8F64 /* ContentView.swift */,
+				DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */,
+				DB69DFED2687CB4A006F20A0 /* PintoGame.swift */,
 				DB635B822676E356003E8F64 /* Assets.xcassets */,
 				DB635B872676E356003E8F64 /* Info.plist */,
 				DB635B842676E356003E8F64 /* Preview Content */,
+				DB69DFE52687C17B006F20A0 /* Grid.swift */,
+				DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */,
+				DB69DFE72687C1AA006F20A0 /* GridLayout.swift */,
 			);
 			path = TopinApp;
 			sourceTree = "<group>";
@@ -138,8 +153,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB69DFEA2687C204006F20A0 /* Array+Identifiable.swift in Sources */,
 				DB635B812676E353003E8F64 /* ContentView.swift in Sources */,
+				DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */,
 				DB635B7F2676E353003E8F64 /* TopinAppApp.swift in Sources */,
+				DB69DFE62687C17B006F20A0 /* Grid.swift in Sources */,
+				DB69DFE82687C1AA006F20A0 /* GridLayout.swift in Sources */,
+				DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
