@@ -18,8 +18,12 @@ class PintoCardGame: ObservableObject {
     
     //MARK: - Access to the Model
     
-    var cards: Array<PintoGame<String>.Card>{
-        model.cards
+    var p1Cards: Array<PintoGame<String>.Card>{
+        model.p1Cards
+    }
+    
+    var p2Cards: Array<PintoGame<String>.Card>{
+        model.p2Cards
     }
     
     //MARK: - Inten(s)

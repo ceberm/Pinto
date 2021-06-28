@@ -9,42 +9,47 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: PintoCardGame
-    
+
+
     var body: some View {
-        HStack{
-            Grid(viewModel.cards) {
-                card in
-                CardView(card: card).onTapGesture {
-                    viewModel.chooseCard(card: card)
+        VStack{
+            HStack{
+                ForEach(viewModel.p2Cards){ card in
+                    CardView(card: card)
                 }
-            }
-            .padding(5)
+            }.padding(.horizontal)
+            HStack{
+                ForEach(viewModel.p1Cards){ card in
+                    CardView(card: card)
+                }
+            }.padding(.horizontal)
+            HStack{
+                ForEach(viewModel.p1Cards){ card in
+                    CardView(card: card)
+                }
+            }.padding(.horizontal)
         }
     }
 }
 
 struct CardView: View {
+    var items: [GridItem] = Array(repeating: .init(.fixed(120)), count: 1)
     var card: PintoGame<String>.Card
     @ViewBuilder
     private func body(for size: CGSize) -> some View {
-        ZStack{
-            Group {
-                Text(card.content)
-                    .font(Font.system(size: fontSize(for: size)))
-            }
-        }
+            Text(card.content)
+                .font(Font.system(size: fontSize(for: size)))
     }
     
     var body: some View {
         GeometryReader { geometry in
            body(for: geometry.size)
-            .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-
-        }.padding()
+            .position(.init(x: geometry.size.width/2, y: geometry.size.height/2))
+        }
     }
     
     //MARK: -Drawing Constants
-    private let fontScaleFactor: CGFloat = 0.61
+    private let fontScaleFactor: CGFloat = 0.5
     
     private func fontSize(for size: CGSize) -> CGFloat {
         max(size.width, size.height) * fontScaleFactor
