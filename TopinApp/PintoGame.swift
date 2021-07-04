@@ -8,9 +8,8 @@
 import Foundation
 
 struct PintoGame<CardContent> where CardContent: Equatable {
-    private(set) var p1Cards: Array<Card>
-    private(set) var p2Cards: Array<Card>
-    //private(set) var themes
+    private(set) var faceUpCards: Array<Card>
+    private(set) var faceDownCards: Array<Card>
     
     struct Card: Identifiable {
         var id: Int
@@ -23,16 +22,16 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     }
     
     init() {
-        p1Cards = Array<Card>()
-        p2Cards = Array<Card>()
-        let defaultCards = ["🂢", "🂣", "🂤"]
-        let defaultCards2 = ["🂸", "🂾", "🃁"]
+        faceUpCards = Array<Card>()
+        faceDownCards = Array<Card>()
+        let default_faceUpCards = ["🂢", "🂣", "🂤"]
+        let default_faceDownCards = ["🂸", "🂾", "🃁"]
         // "🂧", "🃋", "🃎", "🂸", "🂾", "🃁", 
-        for cardIndex in 0..<defaultCards.count {
-            let content = defaultCards[cardIndex]
-            let content2 = defaultCards2[cardIndex]
-            p1Cards.append(Card(id: cardIndex, content: content))
-            p2Cards.append(Card(id: cardIndex+1, content: content2))
+        for cardIndex in 0..<default_faceDownCards.count {
+            let content = default_faceUpCards[cardIndex]
+            let content2 = default_faceDownCards[cardIndex]
+            faceUpCards.append(Card(id: cardIndex, content: content, isFaceUp: true))
+            faceDownCards.append(Card(id: cardIndex+1, content: content2))
         }
         //cards.shuffle()
     }

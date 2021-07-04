@@ -14,45 +14,70 @@ struct ContentView: View {
     var body: some View {
         VStack{
             HStack{
-                ForEach(viewModel.p2Cards){ card in
-                    CardView(card: card)
-                }
-            }.padding(.horizontal)
+                ForEach(viewModel.faceDownCards){ card in
+                    ZStack{
+                        CardViewFaceDown()
+                        CardView()
+                    }
+                }.padding(.top, 21)
+            }.padding(.vertical)
+            
             HStack{
-                ForEach(viewModel.p1Cards){ card in
-                    CardView(card: card)
+                ForEach(viewModel.faceDownCards){ card in
+                    ZStack{
+                        CardViewFaceDown().onTapGesture {
+                            viewModel.chooseCard(card: card)
+                        }
+                    }
                 }
-            }.padding(.horizontal)
+            }.padding(.vertical)
+            
             HStack{
-                ForEach(viewModel.p1Cards){ card in
-                    CardView(card: card)
+                ForEach(viewModel.faceDownCards){ card in
+                    ZStack{
+                        CardView()
+                    }
                 }
-            }.padding(.horizontal)
+            }.padding(.vertical)
+        }
+    }
+}
+
+struct CardViewFaceDown: View {
+    private func body(for size: CGSize) -> some View {
+        Image("facedown")
+            .resizable()
+            .interpolation(.medium)
+            .scaledToFill()
+            .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
+            .border(Color.black, width: 1)
+            .clipped()
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            body(for: geometry.size)
+                .position(x: geometry.size.width/2, y: geometry.size.height/3)
         }
     }
 }
 
 struct CardView: View {
-    var items: [GridItem] = Array(repeating: .init(.fixed(120)), count: 1)
-    var card: PintoGame<String>.Card
-    @ViewBuilder
     private func body(for size: CGSize) -> some View {
-            Text(card.content)
-                .font(Font.system(size: fontSize(for: size)))
+        Image("2")
+            .resizable()
+            .interpolation(.medium)
+            .scaledToFill()
+            .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
+            .border(Color.black, width: 1)
+            .clipped()
     }
     
     var body: some View {
         GeometryReader { geometry in
            body(for: geometry.size)
-            .position(.init(x: geometry.size.width/2, y: geometry.size.height/2))
+            .position(x: geometry.size.width/2, y: geometry.size.height/3)
         }
-    }
-    
-    //MARK: -Drawing Constants
-    private let fontScaleFactor: CGFloat = 0.5
-    
-    private func fontSize(for size: CGSize) -> CGFloat {
-        max(size.width, size.height) * fontScaleFactor
     }
 }
 
@@ -60,7 +85,7 @@ private struct CardConstants {
     static let aspectRatio: CGFloat = 2/3
     static let dealDuration: Double = 0.5
     static let totalDealDuration: Double = 2
-    static let undealtHeight: CGFloat = 99
+    static let undealtHeight: CGFloat = 101
     static let undealtWidth = undealtHeight * aspectRatio
     static let gradientStart = Color(red: 79.0 / 255, green: 79.0 / 255, blue: 191.0 / 255)
     static let gradientEnd = Color(red: 239.0 / 255, green: 172.0 / 255, blue: 120.0 / 255)
