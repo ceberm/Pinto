@@ -14,10 +14,10 @@ struct ContentView: View {
     var body: some View {
         VStack{
             HStack{
-                ForEach(viewModel.faceDownCards){ card in
+                ForEach(viewModel.faceUpCards){ card in
                     ZStack{
                         CardViewFaceDown()
-                        CardView()
+                        CardView(contentImage: card.content)
                     }
                 }.padding(.top, 21)
             }.padding(.vertical)
@@ -35,7 +35,7 @@ struct ContentView: View {
             HStack{
                 ForEach(viewModel.faceDownCards){ card in
                     ZStack{
-                        CardView()
+                        CardView(contentImage: card.content)
                     }
                 }
             }.padding(.vertical)
@@ -63,8 +63,10 @@ struct CardViewFaceDown: View {
 }
 
 struct CardView: View {
+    var contentImage: String
+    
     private func body(for size: CGSize) -> some View {
-        Image("2")
+        Image(contentImage)
             .resizable()
             .interpolation(.medium)
             .scaledToFill()

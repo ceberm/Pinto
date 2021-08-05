@@ -24,9 +24,9 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     init() {
         faceUpCards = Array<Card>()
         faceDownCards = Array<Card>()
-        let default_faceUpCards = ["🂢", "🂣", "🂤"]
+        let default_faceUpCards = ["🃒", "🂣", "🂤"]
         let default_faceDownCards = ["🂸", "🂾", "🃁"]
-        // "🂧", "🃋", "🃎", "🂸", "🂾", "🃁", 
+        // "🂧", "🃋", "🃎", "🂸", "🂾", "🃁", 🂠 🃒 🂢
         for cardIndex in 0..<default_faceDownCards.count {
             let content = default_faceUpCards[cardIndex]
             let content2 = default_faceDownCards[cardIndex]

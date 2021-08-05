@@ -10,7 +10,6 @@ import SwiftUI
 ///View Model
 class PintoCardGame: ObservableObject {
     @Published private var model: PintoGame<String> = createPintoGame()
-    private var currentColor: Color?
     
     private static func createPintoGame() -> PintoGame<String>{
         return PintoGame<String>()
