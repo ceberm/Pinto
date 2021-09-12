@@ -9,88 +9,68 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: PintoCardGame
-
-
+    
     var body: some View {
         VStack{
-            HStack{
+            ScrollView{ //For Player 1
                 ForEach(viewModel.faceUpCards){ card in
                     ZStack{
-                        CardViewFaceDown()
-                        CardView(contentImage: card.content)
+                        if(card.isFaceUp){
+                            CardView(contentImage: card.content).onTapGesture {
+                                viewModel.chooseCard(card: card)
+                            }
+                        }
+                        else {
+                            CardView(contentImage: "facedown")
+                        }
                     }
-                }.padding(.top, 21)
+                }.padding(5)
             }.padding(.vertical)
             
-            HStack{
+            /*HStack{ // For current Game
                 ForEach(viewModel.faceDownCards){ card in
                     ZStack{
-                        CardViewFaceDown().onTapGesture {
-                            viewModel.chooseCard(card: card)
+                        if(card.isFaceUp){
+                            CardView(contentImage: card.content)
+                        }
+                        else {
+                            CardView(contentImage: "facedown")
                         }
                     }
                 }
             }.padding(.vertical)
             
-            HStack{
+            HStack{ // For Player 2
                 ForEach(viewModel.faceDownCards){ card in
                     ZStack{
-                        CardView(contentImage: card.content)
+                        if(card.isFaceUp){
+                            CardView(contentImage: card.content)
+                        }
+                        else {
+                            CardView(contentImage: "facedown")
+                        }
                     }
-                }
-            }.padding(.vertical)
-        }
-    }
-}
-
-struct CardViewFaceDown: View {
-    private func body(for size: CGSize) -> some View {
-        Image("facedown")
-            .resizable()
-            .interpolation(.medium)
-            .scaledToFill()
-            .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-            .border(Color.black, width: 1)
-            .clipped()
-    }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            body(for: geometry.size)
-                .position(x: geometry.size.width/2, y: geometry.size.height/3)
+                }.padding(5)
+            }.padding(.vertical)*/
         }
     }
 }
 
 struct CardView: View {
     var contentImage: String
-    
-    private func body(for size: CGSize) -> some View {
-        Image(contentImage)
-            .resizable()
-            .interpolation(.medium)
-            .scaledToFill()
-            .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-            .border(Color.black, width: 1)
-            .clipped()
-    }
-    
     var body: some View {
-        GeometryReader { geometry in
-           body(for: geometry.size)
-            .position(x: geometry.size.width/2, y: geometry.size.height/3)
-        }
+        Image(contentImage)
+            .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+            .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
+            .border(Color.black, width: CardConstants.borderWidth)
     }
 }
 
 private struct CardConstants {
     static let aspectRatio: CGFloat = 2/3
-    static let dealDuration: Double = 0.5
-    static let totalDealDuration: Double = 2
-    static let undealtHeight: CGFloat = 101
+    static let borderWidth: CGFloat = 0.55
+    static let undealtHeight: CGFloat = 101 // divide by number of players
     static let undealtWidth = undealtHeight * aspectRatio
-    static let gradientStart = Color(red: 79.0 / 255, green: 79.0 / 255, blue: 191.0 / 255)
-    static let gradientEnd = Color(red: 239.0 / 255, green: 172.0 / 255, blue: 120.0 / 255)
 }
 
 
