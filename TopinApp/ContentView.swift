@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
-            ScrollView{ //For Player 1
+            HStack{ //For Player 1
                 ForEach(viewModel.faceUpCards){ card in
                     ZStack{
                         if(card.isFaceUp){
@@ -27,7 +27,7 @@ struct ContentView: View {
                 }.padding(5)
             }.padding(.vertical)
             
-            /*HStack{ // For current Game
+           /* HStack{ // For current Game
                 ForEach(viewModel.faceDownCards){ card in
                     ZStack{
                         if(card.isFaceUp){

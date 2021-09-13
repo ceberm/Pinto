@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array where Element: Identifiable{
+extension Array where Element: Identifiable {
     func firstIndex(matching: Element) -> Int? {
         for index in 0..<self.count {
             if self[index].id == matching.id {
@@ -15,5 +15,9 @@ extension Array where Element: Identifiable{
             }
         }
         return nil
+    }
+    
+    mutating func randomElementRemoval() -> Element {
+        return self.remove(at: self.firstIndex(matching:  self.randomElement()!)!)
     }
 }
