@@ -13,16 +13,14 @@ struct ContentView: View {
     var body: some View {
         VStack{
             HStack{ //For Player 1
-                ForEach(viewModel.faceUpCards){ card in
+                ForEach(viewModel.getFaceDownCards(Players.p1)){ card in
                     ZStack{
-                        if(card.isFaceUp){
-                            CardView(contentImage: card.content).onTapGesture {
-                                viewModel.chooseCard(card: card)
-                            }
+                        CardView(contentImage: "facedown")
+                        CardView(contentImage: card.content).onTapGesture {
+                            viewModel.chooseCard(card: card)
                         }
-                        else {
-                            CardView(contentImage: "facedown")
-                        }
+                        //.rotationEffect(Angle(degrees: 90))
+                        //.animation(.ripple(index: card.id))
                     }
                 }.padding(5)
             }.padding(.vertical)
@@ -62,7 +60,8 @@ struct CardView: View {
         Image(contentImage)
             .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
             .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-            .border(Color.black, width: CardConstants.borderWidth)
+            .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
+            .shadow(radius: 8)
     }
 }
 
@@ -73,9 +72,23 @@ private struct CardConstants {
     static let undealtWidth = undealtHeight * aspectRatio
 }
 
+extension Animation {
+    static func ripple(index: Int) -> Animation {
+        Animation.spring(dampingFraction: 0.5)
+            .speed(2)
+            .delay(0.03 * Double(index))
+    }
+}
 
-
-
+extension AnyTransition {
+    static var moveAndFade: AnyTransition {
+        let insertion = AnyTransition.move(edge: .trailing)
+            .combined(with: .opacity)
+        let removal = AnyTransition.scale
+            .combined(with: .opacity)
+        return .asymmetric(insertion: insertion, removal: removal)
+    }
+}
 
 
 

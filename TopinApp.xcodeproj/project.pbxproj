@@ -15,6 +15,7 @@
 		DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */; };
 		DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFED2687CB4A006F20A0 /* PintoGame.swift */; };
 		DB829157269129CB00366D01 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB829156269129CB00366D01 /* Utilities.swift */; };
+		DB9F951826F0510600227103 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F951726F0510600227103 /* Enums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoCardGame.swift; sourceTree = "<group>"; };
 		DB69DFED2687CB4A006F20A0 /* PintoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoGame.swift; sourceTree = "<group>"; };
 		DB829156269129CB00366D01 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		DB9F951726F0510600227103 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				DB635B842676E356003E8F64 /* Preview Content */,
 				DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */,
 				DB829156269129CB00366D01 /* Utilities.swift */,
+				DB9F951726F0510600227103 /* Enums.swift */,
 			);
 			path = TopinApp;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				DB635B812676E353003E8F64 /* ContentView.swift in Sources */,
 				DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */,
 				DB635B7F2676E353003E8F64 /* TopinApp.swift in Sources */,
+				DB9F951826F0510600227103 /* Enums.swift in Sources */,
 				DB829157269129CB00366D01 /* Utilities.swift in Sources */,
 				DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */,
 			);

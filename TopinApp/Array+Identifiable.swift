@@ -17,7 +17,8 @@ extension Array where Element: Identifiable {
         return nil
     }
     
-    mutating func randomElementRemoval() -> Element {
+    /// Removes Elements at a random position
+    mutating func randomDrop() -> Element {
         return self.remove(at: self.firstIndex(matching:  self.randomElement()!)!)
     }
 }
