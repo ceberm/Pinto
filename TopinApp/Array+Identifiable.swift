@@ -18,7 +18,11 @@ extension Array where Element: Identifiable {
     }
     
     /// Removes Elements at a random position
-    mutating func randomDrop() -> Element {
-        return self.remove(at: self.firstIndex(matching:  self.randomElement()!)!)
+    mutating func randomDrop() -> Element? {
+        let elem = self.randomElement()
+        if(elem != nil){
+            return self.remove(at: self.firstIndex(matching:  elem!)!)
+        }
+        return nil
     }
 }

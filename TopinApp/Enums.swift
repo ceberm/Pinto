@@ -10,3 +10,8 @@ import Foundation
 enum Players {
     case p1, p2, p3, p4
 }
+
+enum PintoModelError: Error {
+    case invalidNumberOfPlayers
+    case deckIsEmpty
+}

@@ -17,25 +17,25 @@ class PintoCardGame: ObservableObject {
     
     //MARK: - Access to the Model
     
-    var player1Cards: Array<PintoGame<String>.Card>{
-        model.player1.playerCards
+    var player1Cards: Array<Card>{
+        model.players[0].playerCards
     }
     
-    var player2Cards: Array<PintoGame<String>.Card>{
-        model.player2.playerCards
+    var player2Cards: Array<Card>{
+        model.players[1].playerCards
     }
     
-    //MARK: - Inten(s)
+    //MARK: - Intent(s)
     
-    func chooseCard(card: PintoGame<String>.Card){
+    func chooseCard(card: Card){
         model.pick(card: card)
     }
     
-    func getFaceDownCards(_ player: Players) -> Array<PintoGame<String>.Card> {
+    func getFaceDownCards(_ player: Players) -> Array<Card> {
         return model.getFaceDownCards(player)
     }
     
-    func getFaceUpCards(_ player: Players) -> Array<PintoGame<String>.Card> {
+    func getFaceUpCards(_ player: Players) -> Array<Card> {
         return model.getFaceUpCards(player)
     }
 }

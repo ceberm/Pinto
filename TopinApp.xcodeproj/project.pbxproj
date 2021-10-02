@@ -15,8 +15,20 @@
 		DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */; };
 		DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFED2687CB4A006F20A0 /* PintoGame.swift */; };
 		DB829157269129CB00366D01 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB829156269129CB00366D01 /* Utilities.swift */; };
+		DB8500002708F84B00DCC8EE /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFFF2708F84B00DCC8EE /* Structs.swift */; };
+		DB85FFF92708DCCE00DCC8EE /* TopinAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFF82708DCCE00DCC8EE /* TopinAppTests.swift */; };
 		DB9F951826F0510600227103 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F951726F0510600227103 /* Enums.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB85FFFA2708DCCE00DCC8EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB635B732676E353003E8F64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB635B7A2676E353003E8F64;
+			remoteInfo = TopinApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DB635B7B2676E353003E8F64 /* TopinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,11 +41,21 @@
 		DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoCardGame.swift; sourceTree = "<group>"; };
 		DB69DFED2687CB4A006F20A0 /* PintoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoGame.swift; sourceTree = "<group>"; };
 		DB829156269129CB00366D01 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		DB85FFF62708DCCE00DCC8EE /* TopinAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TopinAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB85FFF82708DCCE00DCC8EE /* TopinAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopinAppTests.swift; sourceTree = "<group>"; };
+		DB85FFFF2708F84B00DCC8EE /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		DB9F951726F0510600227103 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DB635B782676E353003E8F64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB85FFF32708DCCE00DCC8EE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				DB635B7D2676E353003E8F64 /* TopinApp */,
+				DB85FFF72708DCCE00DCC8EE /* TopinAppTests */,
 				DB635B7C2676E353003E8F64 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				DB635B7B2676E353003E8F64 /* TopinApp.app */,
+				DB85FFF62708DCCE00DCC8EE /* TopinAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +96,7 @@
 				DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */,
 				DB829156269129CB00366D01 /* Utilities.swift */,
 				DB9F951726F0510600227103 /* Enums.swift */,
+				DB85FFFF2708F84B00DCC8EE /* Structs.swift */,
 			);
 			path = TopinApp;
 			sourceTree = "<group>";
@@ -82,6 +107,14 @@
 				DB635B852676E356003E8F64 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DB85FFF72708DCCE00DCC8EE /* TopinAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				DB85FFF82708DCCE00DCC8EE /* TopinAppTests.swift */,
+			);
+			path = TopinAppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,17 +137,39 @@
 			productReference = DB635B7B2676E353003E8F64 /* TopinApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DB85FFF52708DCCE00DCC8EE /* TopinAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB85FFFE2708DCCE00DCC8EE /* Build configuration list for PBXNativeTarget "TopinAppTests" */;
+			buildPhases = (
+				DB85FFF22708DCCE00DCC8EE /* Sources */,
+				DB85FFF32708DCCE00DCC8EE /* Frameworks */,
+				DB85FFF42708DCCE00DCC8EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB85FFFB2708DCCE00DCC8EE /* PBXTargetDependency */,
+			);
+			name = TopinAppTests;
+			productName = TopinAppTests;
+			productReference = DB85FFF62708DCCE00DCC8EE /* TopinAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DB635B732676E353003E8F64 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					DB635B7A2676E353003E8F64 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					DB85FFF52708DCCE00DCC8EE = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = DB635B7A2676E353003E8F64;
 					};
 				};
 			};
@@ -132,6 +187,7 @@
 			projectRoot = "";
 			targets = (
 				DB635B7A2676E353003E8F64 /* TopinApp */,
+				DB85FFF52708DCCE00DCC8EE /* TopinAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -146,6 +202,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB85FFF42708DCCE00DCC8EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -153,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB8500002708F84B00DCC8EE /* Structs.swift in Sources */,
 				DB69DFEA2687C204006F20A0 /* Array+Identifiable.swift in Sources */,
 				DB635B812676E353003E8F64 /* ContentView.swift in Sources */,
 				DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */,
@@ -163,7 +227,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB85FFF22708DCCE00DCC8EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB85FFF92708DCCE00DCC8EE /* TopinAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB85FFFB2708DCCE00DCC8EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB635B7A2676E353003E8F64 /* TopinApp */;
+			targetProxy = DB85FFFA2708DCCE00DCC8EE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DB635B882676E356003E8F64 /* Debug */ = {
@@ -326,6 +406,56 @@
 			};
 			name = Release;
 		};
+		DB85FFFC2708DCCE00DCC8EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VX3TX38PUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ceberm.cs193p.TopinAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TopinApp.app/TopinApp";
+			};
+			name = Debug;
+		};
+		DB85FFFD2708DCCE00DCC8EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VX3TX38PUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ceberm.cs193p.TopinAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TopinApp.app/TopinApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -343,6 +473,15 @@
 			buildConfigurations = (
 				DB635B8B2676E356003E8F64 /* Debug */,
 				DB635B8C2676E356003E8F64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB85FFFE2708DCCE00DCC8EE /* Build configuration list for PBXNativeTarget "TopinAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB85FFFC2708DCCE00DCC8EE /* Debug */,
+				DB85FFFD2708DCCE00DCC8EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

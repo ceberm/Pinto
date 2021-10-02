@@ -13,9 +13,9 @@ struct ContentView: View {
     var body: some View {
         VStack{
             HStack{ //For Player 1
-                ForEach(viewModel.getFaceDownCards(Players.p1)){ card in
+                ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
                     ZStack{
-                        CardView(contentImage: "facedown")
+                        //CardView(contentImage: "facedown")
                         CardView(contentImage: card.content).onTapGesture {
                             viewModel.chooseCard(card: card)
                         }
