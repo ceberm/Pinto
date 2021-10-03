@@ -29,7 +29,7 @@ struct PintoGame<CardContent> where CardContent: Equatable {
         }
         
         do {
-            try loadPlayers(2)
+            try loadPlayers(4)
         }
         catch  {
             print("issue unexpected")
@@ -54,26 +54,26 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     func getFaceDownCards(_ player: Players) -> Array<Card> {
         switch player {
             case .p1:
-                return players[0].playerCards.filter {$0.isFaceUp == false}
+                return players[0].playerCards.filter {!$0.isFaceUp}
             case .p2:
-                return players[1].playerCards.filter {$0.isFaceUp == false}
+                return players[1].playerCards.filter {!$0.isFaceUp}
             case .p3:
-                return players[2].playerCards.filter {$0.isFaceUp == false}
+                return players[2].playerCards.filter {!$0.isFaceUp}
             case .p4:
-                return players[3].playerCards.filter {$0.isFaceUp == false}
+                return players[3].playerCards.filter {!$0.isFaceUp}
         }
     }
     
     func getFaceUpCards(_ player: Players) -> Array<Card> {
         switch player {
             case .p1:
-                return players[0].playerCards.filter {$0.isFaceUp}
+            return players[0].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
             case .p2:
-                return players[1].playerCards.filter {$0.isFaceUp}
+                return players[1].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
             case .p3:
-                return players[2].playerCards.filter {$0.isFaceUp}
+                return players[2].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
             case .p4:
-                return players[3].playerCards.filter {$0.isFaceUp}
+                return players[3].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
         }
     }
     
@@ -81,12 +81,14 @@ struct PintoGame<CardContent> where CardContent: Equatable {
         var cards = [Card]()
         for index in 0..<9 {
             if var randomCard = initialDeck.randomDrop() {
-                if index < 3 {
-                    randomCard.isFaceUp = false
+                if index < 6 {
+                    randomCard.isFaceUp = true
+                    if index > 2  {
+                        randomCard.isOnHand = true
+                    }
                 }
                 cards.append(randomCard)
             } else {
-                print("error!!")
                 throw PintoModelError.deckIsEmpty
             }
         }

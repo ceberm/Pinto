@@ -11,6 +11,7 @@ struct Card: Identifiable {
     var id: Int
     var content: String
     var isFaceUp: Bool = false
+    var isOnHand: Bool = false
 }
 
 

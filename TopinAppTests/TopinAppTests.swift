@@ -38,18 +38,11 @@ class TopinAppTests: XCTestCase {
     }
 
     func testDealingCards() throws {
-        // This is an example of a performance test case.
+        // The Max players with a deck would be 5
         var model = PintoGame<String>()
-        var cards: Array<Card>
-        do{
-            for _ in 0...5 {
-                cards = try model.dealCardsForPlayer()
-                print(cards)
-            }
-        }
-        catch PintoModelError.deckIsEmpty{
-            print("Out of Cards.")
-        }
+        try model.dealCardsForPlayer()
+        try model.dealCardsForPlayer()
+        try model.dealCardsForPlayer()
     }
 
 }

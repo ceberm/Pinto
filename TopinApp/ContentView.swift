@@ -11,58 +11,105 @@ struct ContentView: View {
     @ObservedObject var viewModel: PintoCardGame
     
     var body: some View {
-        VStack{
-            HStack{ //For Player 1
+        GeometryReader { proxy in
+            ScrollView(showsIndicators: false) {
+                
+            LazyHGrid(rows: rows(size: proxy.size), spacing: 10.0) { //For Player 1
                 ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
-                    ZStack{
-                        //CardView(contentImage: "facedown")
-                        CardView(contentImage: card.content).onTapGesture {
+                    
+                        //CardView(card: card, size: proxy.size).hidden()
+                        CardView(card: card, size: proxy.size).onTapGesture {
                             viewModel.chooseCard(card: card)
                         }
-                        //.rotationEffect(Angle(degrees: 90))
-                        //.animation(.ripple(index: card.id))
-                    }
-                }.padding(5)
-            }.padding(.vertical)
-            
-           /* HStack{ // For current Game
-                ForEach(viewModel.faceDownCards){ card in
-                    ZStack{
-                        if(card.isFaceUp){
-                            CardView(contentImage: card.content)
-                        }
-                        else {
-                            CardView(contentImage: "facedown")
-                        }
-                    }
+                    
                 }
-            }.padding(.vertical)
+            }.frame(width: proxy.size.width)
+                
             
-            HStack{ // For Player 2
-                ForEach(viewModel.faceDownCards){ card in
-                    ZStack{
-                        if(card.isFaceUp){
-                            CardView(contentImage: card.content)
-                        }
-                        else {
-                            CardView(contentImage: "facedown")
+            LazyHGrid(rows: rows(size: proxy.size), spacing: proxy.size.width/3) { //For Player 2
+                
+                    HStack{
+                    ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
+                            //CardView(contentImage: "facedown").hidden()
+                        CardView(card: card, size: proxy.size)
+                        
+                        
+                            //.animation(.ripple(index: card.id))
+                    }
+                    }
+                    .rotationEffect(Angle(degrees: 90))
+                
+            
+                    HStack{
+                    ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
+                        
+                            //CardView(contentImage: "facedown")
+                        CardView(card: card, size: proxy.size)
+                            
+                            //.animation(.ripple(index: card.id))
+                        
+                        
+                    }
+                    }
+                    .rotationEffect(Angle(degrees: 90))
+            }
+            .frame(width: proxy.size.width)
+            
+                
+                
+               /* LazyHGrid(rows: columns(size: proxy.size), spacing: 5.0) { //For Player 1
+                    ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
+                        ZStack{
+                            //CardView(contentImage: "facedown")
+                            CardView(card: card, size: proxy.size).onTapGesture {
+                                viewModel.chooseCard(card: card)
+                            }
+                            //.rotationEffect(Angle(degrees: 90))
+                            //.animation(.ripple(index: card.id))
                         }
                     }
-                }.padding(5)
-            }.padding(.vertical)*/
+                }.frame(width: proxy.size.width * 0.8)
+                    .background(Color.gray)
+                    .padding(.leading, (proxy.size.width - proxy.size.width * 0.8) / 2)*/
+            }
         }
     }
 }
 
 struct CardView: View {
-    var contentImage: String
+    var card: Card
+    var size: CGSize
     var body: some View {
-        Image(contentImage)
-            .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
-            .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-            .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
-            .shadow(radius: 8)
+        if(card.isFaceUp){
+            //Text(card.content).font(.custom("custom1", fixedSize: min(size.width, size.height) / 4))
+            Image(card.content)
+                .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+                .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
+                .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
+                .shadow(radius: 8)
+        }else {
+            /*Image("facedown")
+                .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+                .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
+                .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
+                .shadow(radius: 8)*/
+        }
+        
     }
+}
+
+func columns(size: CGSize) -> [GridItem] {
+  [
+    GridItem(.adaptive(
+      minimum: thumbnailSize(size: size).width))
+  ]
+}
+
+func rows(size: CGSize) -> [GridItem] {
+  [
+    GridItem(.adaptive(
+      minimum: thumbnailSize(size: size).height))
+  ]
 }
 
 private struct CardConstants {
@@ -72,21 +119,22 @@ private struct CardConstants {
     static let undealtWidth = undealtHeight * aspectRatio
 }
 
+func thumbnailSize(size: CGSize) -> CGSize {
+  let threshold: CGFloat = 500
+  var scale: CGFloat = 0.75
+  if size.width > threshold && size.height > threshold {
+scale = 0.2 }
+  return CGSize(
+    width: CardConstants.undealtWidth * scale,
+    height: CardConstants.undealtHeight * scale)
+}
+
+
 extension Animation {
     static func ripple(index: Int) -> Animation {
         Animation.spring(dampingFraction: 0.5)
             .speed(2)
             .delay(0.03 * Double(index))
-    }
-}
-
-extension AnyTransition {
-    static var moveAndFade: AnyTransition {
-        let insertion = AnyTransition.move(edge: .trailing)
-            .combined(with: .opacity)
-        let removal = AnyTransition.scale
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
     }
 }
 
@@ -161,7 +209,9 @@ extension AnyTransition {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(viewModel: PintoCardGame()).preferredColorScheme(.light)
-        ContentView(viewModel: PintoCardGame()).preferredColorScheme(.dark)
+            //.previewLayout(.fixed(width: 812, height: 375))
+        ContentView(viewModel: PintoCardGame()).preferredColorScheme(.light)
+            .previewLayout(.fixed(width: 812, height: 375))
         
     }
 }
