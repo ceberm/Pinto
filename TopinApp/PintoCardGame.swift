@@ -38,4 +38,8 @@ class PintoCardGame: ObservableObject {
     func getFaceUpCards(_ player: Players) -> Array<Card> {
         return model.getFaceUpCards(player)
     }
+    
+    func getInitialCard() -> Array<Card> {
+        return model.initialDeck
+    }
 }

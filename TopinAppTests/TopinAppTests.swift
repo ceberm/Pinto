@@ -40,9 +40,9 @@ class TopinAppTests: XCTestCase {
     func testDealingCards() throws {
         // The Max players with a deck would be 5
         var model = PintoGame<String>()
-        try model.dealCardsForPlayer()
-        try model.dealCardsForPlayer()
-        try model.dealCardsForPlayer()
+        _ = try model.dealCardsForPlayer()
+        _ = try model.dealCardsForPlayer()
+        _ = try model.dealCardsForPlayer()
     }
 
 }

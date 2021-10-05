@@ -13,7 +13,7 @@ struct PintoGame<CardContent> where CardContent: Equatable {
                          "🂾", "🃁", "🃂", "🃃", "🃄", "🃅", "🃆", "🃇", "🃈", "🃉", "🃊", "🃋", "🃍", "🃎",
                          "🃑", "🃒", "🃓", "🃔", "🃕", "🃖", "🃗", "🃘", "🃙", "🃚", "🃛", "🃝", "🃞"]
     
-    private var initialDeck = Array<Card>()
+    private(set) var initialDeck = Array<Card>()
     private(set) var players = Array<Player>()
     
     mutating func pick(card: Card){
