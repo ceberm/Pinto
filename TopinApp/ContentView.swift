@@ -38,8 +38,27 @@ struct ContentView: View {
                         
                             //.animation(.ripple(index: card.id))
                     }
+                    }.rotationEffect(Angle(degrees: 90)).padding(.leading)
+                    
+                    ZStack{
+                    ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
+                            //CardView(contentImage: "facedown").hidden()
+                        CardView(card: card, size: proxy.size, includeShadow: false)
+                        
+                        
+                            //.animation(.ripple(index: card.id))
                     }
-                    .rotationEffect(Angle(degrees: 90))
+                    }.padding(.trailing)
+                    
+                    ZStack{
+                    ForEach(viewModel.getFaceDownCards(Players.p2)){ card in
+                            //CardView(contentImage: "facedown").hidden()
+                        CardView(card: card, size: proxy.size, includeShadow: false)
+                        
+                        
+                            //.animation(.ripple(index: card.id))
+                    }
+                    }
                 
                 
                     HStack{
@@ -52,10 +71,8 @@ struct ContentView: View {
                         
                         
                     }
-                    }
-                    .rotationEffect(Angle(degrees: 90))
-            }
-            .frame(width: proxy.size.width)
+                    }.rotationEffect(Angle(degrees: 90)).padding(.trailing)
+                }.frame(width: proxy.size.width).padding(.top)
                 
                 LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { //For Player 1
                     ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
@@ -70,7 +87,9 @@ struct ContentView: View {
                 .padding(.top, max(proxy.size.height,proxy.size.width) - max(proxy.size.height,proxy.size.width) * 0.95 )
             }
             
-            ScrollView(showsIndicators: false) {//For Player 1
+            /*
+                 Para las cartas que se comen del pozo
+                 ScrollView(showsIndicators: false) {//For Player 1
                 LazyVGrid(columns: columns(size: proxy.size), spacing: 5.0) {
                     
                     ForEach(viewModel.getFaceDownCards(Players.p3)){ card in
@@ -107,8 +126,8 @@ struct ContentView: View {
                     }
                     
                 }
+            }*/
             }
-            }.padding(.top)
         }
     }
 }
@@ -116,22 +135,29 @@ struct ContentView: View {
 struct CardView: View {
     var card: Card
     var size: CGSize
+    var includeShadow: Bool = true
     var body: some View {
         
-        Image(card.content)
-            .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
-            .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
-            .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
-            .shadow(radius: 8)
+        
+        
         if(card.isFaceUp){
-            //Text(card.content).font(.custom("custom1", fixedSize: min(size.width, size.height) / 10))
-            
+            if(includeShadow){
+                Image(card.content)
+                    .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+                    .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
+                    .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
+                    .shadow(radius: 8)
+            }else {
+                Image(card.content)
+                    .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+                    .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
+                    .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.3))
+            }
         }else {
-            /*Image("facedown")
+            Image("facedown")
                 .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
                 .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
                 .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
-                .shadow(radius: 8)*/
         }
         
     }
@@ -157,7 +183,7 @@ private struct CardConstants {
     static let undealtHeight: CGFloat = 99
     static let undealtWidth = undealtHeight * aspectRatio
     static let scale: CGFloat = 0.7
-    static let spacingScale: CGFloat = 3.8
+    static let spacingScale: CGFloat = 512
     static let defaultSpacing: CGFloat = 5.0
 }
 
