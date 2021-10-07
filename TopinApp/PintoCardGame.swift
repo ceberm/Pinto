@@ -16,14 +16,7 @@ class PintoCardGame: ObservableObject {
     }
     
     //MARK: - Access to the Model
-    
-    var player1Cards: Array<Card>{
-        model.players[0].playerCards
-    }
-    
-    var player2Cards: Array<Card>{
-        model.players[1].playerCards
-    }
+  
     
     //MARK: - Intent(s)
     
@@ -39,7 +32,11 @@ class PintoCardGame: ObservableObject {
         return model.getFaceUpCards(player)
     }
     
-    func getInitialCard() -> Array<Card> {
+    func getInitialCards() -> Array<Card> {
         return model.initialDeck
+    }
+    
+    func getDiscartedCards() -> Array<Card> {
+        return model.discartedCards
     }
 }

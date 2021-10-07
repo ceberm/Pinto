@@ -17,5 +17,7 @@ struct Card: Identifiable {
 
 struct Player: Identifiable {
     var id: Int
-    var playerCards: Array<Card>
+    var faceUpCards: Array<Card> = []
+    var faceDownCards: Array<Card> = []
+    var onHandCards: Array<Card> = []
 }

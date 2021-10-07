@@ -19,7 +19,6 @@ struct ContentView: View {
                 LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { // View For Player 3
                 ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
                     
-                        //CardView(card: card, size: proxy.size).hidden()
                         CardView(card: card, size: proxy.size).onTapGesture {
                             viewModel.chooseCard(card: card)
                         }
@@ -31,53 +30,33 @@ struct ContentView: View {
                 LazyHGrid(rows: rows(size: proxy.size), spacing: proxy.size.width/CardConstants.spacingScale) { //For Player 2
                 
                     HStack{
-                    ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
-                            //CardView(contentImage: "facedown").hidden()
-                        CardView(card: card, size: proxy.size)
-                        
-                        
-                            //.animation(.ripple(index: card.id))
-                    }
+                        ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
+                            CardView(card: card, size: proxy.size)
+                        }
                     }.rotationEffect(Angle(degrees: 90)).padding(.leading)
                     
-                    ZStack{
-                    ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
-                            //CardView(contentImage: "facedown").hidden()
-                        CardView(card: card, size: proxy.size, includeShadow: false)
-                        
-                        
-                            //.animation(.ripple(index: card.id))
-                    }
+                    ZStack{ //For Cards on the deck and the discarted ones
+                        ForEach(viewModel.getInitialCards()){ card in
+                            CardView(card: card, size: proxy.size, includeShadow: false)
+                        }
                     }.padding(.trailing)
                     
                     ZStack{
-                    ForEach(viewModel.getFaceDownCards(Players.p2)){ card in
-                            //CardView(contentImage: "facedown").hidden()
-                        CardView(card: card, size: proxy.size, includeShadow: false)
-                        
-                        
-                            //.animation(.ripple(index: card.id))
-                    }
+                        ForEach(viewModel.getDiscartedCards()){ card in
+                            CardView(card: card, size: proxy.size, includeShadow: false)
+                        }
                     }
                 
                 
                     HStack{
-                    ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
-                        
-                            //CardView(contentImage: "facedown")
-                        CardView(card: card, size: proxy.size)
-                            
-                            //.animation(.ripple(index: card.id))
-                        
-                        
-                    }
+                        ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
+                            CardView(card: card, size: proxy.size)
+                        }
                     }.rotationEffect(Angle(degrees: 90)).padding(.trailing)
                 }.frame(width: proxy.size.width).padding(.top)
                 
                 LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { //For Player 1
                     ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
-                        
-                            //CardView(card: card, size: proxy.size).hidden()
                             CardView(card: card, size: proxy.size).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
@@ -87,38 +66,29 @@ struct ContentView: View {
                 .padding(.top, max(proxy.size.height,proxy.size.width) - max(proxy.size.height,proxy.size.width) * 0.95 )
             }
             
-            /*
-                 Para las cartas que se comen del pozo
-                 ScrollView(showsIndicators: false) {//For Player 1
+                /*
+                // Para las cartas que se comen del pozo
+             ScrollView(showsIndicators: false) {//For Player 1
                 LazyVGrid(columns: columns(size: proxy.size), spacing: 5.0) {
                     
                     ForEach(viewModel.getFaceDownCards(Players.p3)){ card in
-                        
-                            //CardView(card: card, size: proxy.size).hidden()
                             CardView(card: card, size: proxy.size).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
-                        
                     }
                     ForEach(viewModel.getFaceDownCards(Players.p2)){ card in
-                        
-                            //CardView(card: card, size: proxy.size).hidden()
                             CardView(card: card, size: proxy.size).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
                         
                     }
                     ForEach(viewModel.getFaceDownCards(Players.p4)){ card in
-                        
-                            //CardView(card: card, size: proxy.size).hidden()
                             CardView(card: card, size: proxy.size).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
                         
                     }
                     ForEach(viewModel.getFaceDownCards(Players.p1)){ card in
-                        
-                            //CardView(card: card, size: proxy.size).hidden()
                             CardView(card: card, size: proxy.size).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
@@ -126,7 +96,7 @@ struct ContentView: View {
                     }
                     
                 }
-            }*/
+             }.padding()*/
             }
         }
     }

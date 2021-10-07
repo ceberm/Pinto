@@ -14,7 +14,9 @@ struct PintoGame<CardContent> where CardContent: Equatable {
                          "🃑", "🃒", "🃓", "🃔", "🃕", "🃖", "🃗", "🃘", "🃙", "🃚", "🃛", "🃝", "🃞"]
     
     private(set) var initialDeck = Array<Card>()
+    private(set) var discartedCards = Array<Card>()
     private(set) var players = Array<Player>()
+    private(set) var initialCard: Card?
     
     mutating func pick(card: Card){
         print("Card clicked! \(card)")
@@ -40,58 +42,66 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     mutating func loadPlayers(_ numberOfPlayers: Int) throws {
         if(numberOfPlayers >= 2){
             for num in 0..<numberOfPlayers {
-                players.append(Player(id: num, playerCards: try dealCardsForPlayer()))
+                let player = try createPlayerWithCards(num)
+                players.append(player)
             }
+            initialCard!.isFaceUp = true
+            discartedCards.append(initialCard!)
         } else {
             throw PintoModelError.invalidNumberOfPlayers
         }
     }
     
     mutating func loadNewPlayer(_ numberOfPlayers: Int) throws{
-        players.append(Player(id: players.count, playerCards: try dealCardsForPlayer()))
+        players.append(Player(id: players.count))
     }
     
     func getFaceDownCards(_ player: Players) -> Array<Card> {
-        switch player {
-            case .p1:
-                return players[0].playerCards.filter {!$0.isFaceUp}
-            case .p2:
-                return players[1].playerCards.filter {!$0.isFaceUp}
-            case .p3:
-                return players[2].playerCards.filter {!$0.isFaceUp}
-            case .p4:
-                return players[3].playerCards.filter {!$0.isFaceUp}
-        }
+        return players[player.rawValue].faceDownCards
     }
     
     func getFaceUpCards(_ player: Players) -> Array<Card> {
-        switch player {
-            case .p1:
-            return players[0].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
-            case .p2:
-                return players[1].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
-            case .p3:
-                return players[2].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
-            case .p4:
-                return players[3].playerCards.filter {$0.isFaceUp && !$0.isOnHand}
-        }
+        return players[player.rawValue].faceUpCards
     }
     
-    mutating func dealCardsForPlayer() throws -> Array<Card> {
-        var cards = [Card]()
-        for index in 0..<9 {
-            if var randomCard = initialDeck.randomDrop() {
-                if index < 6 {
-                    randomCard.isFaceUp = true
-                    if index > 2  {
-                        randomCard.isOnHand = true
-                    }
-                }
-                cards.append(randomCard)
-            } else {
-                throw PintoModelError.deckIsEmpty
-            }
+    mutating func createPlayerWithCards(_ id: Int) throws -> Player{
+        var player = Player(id: id)
+        
+        var randomCard = initialDeck.randomDrop()
+        randomCard?.isFaceUp = true
+        player.faceUpCards.append(randomCard!)
+        randomCard = initialDeck.randomDrop()
+        randomCard?.isFaceUp = true
+        player.faceUpCards.append(randomCard!)
+        randomCard = initialDeck.randomDrop()
+        randomCard?.isFaceUp = true
+        player.faceUpCards.append(randomCard!)
+        
+        randomCard = initialDeck.randomDrop()
+        randomCard?.isOnHand = true
+        player.onHandCards.append(randomCard!)
+        randomCard = initialDeck.randomDrop()
+        randomCard?.isOnHand = true
+        player.onHandCards.append(randomCard!)
+        randomCard = initialDeck.randomDrop()
+        randomCard?.isOnHand = true
+        player.onHandCards.append(randomCard!)
+        
+        let minCard = player.onHandCards.min(by: { card1, card2 in
+            card1.content < card2.content
+        })
+        
+        if(initialCard == nil || minCard!.content < initialCard!.content){
+            initialCard = minCard
         }
-        return cards
+        
+        randomCard = initialDeck.randomDrop()
+        player.faceDownCards.append(randomCard!)
+        randomCard = initialDeck.randomDrop()
+        player.faceDownCards.append(randomCard!)
+        randomCard = initialDeck.randomDrop()
+        player.faceDownCards.append(randomCard!)
+        
+        return player
     }
 }
