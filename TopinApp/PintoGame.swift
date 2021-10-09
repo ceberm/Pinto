@@ -64,6 +64,10 @@ struct PintoGame<CardContent> where CardContent: Equatable {
         return players[player.rawValue].faceUpCards
     }
     
+    func getCardsOnHand(_ player: Players) -> Array<Card> {
+        return players[player.rawValue].onHandCards
+    }
+    
     mutating func createPlayerWithCards(_ id: Int) throws -> Player{
         var player = Player(id: id)
         

@@ -11,7 +11,7 @@ import SwiftUI
 struct TopinApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: PintoCardGame())
+            GameView(viewModel: PintoCardGame())
         }
     }
 }
