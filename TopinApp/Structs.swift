@@ -12,6 +12,11 @@ struct Card: Identifiable {
     var content: String
     var isFaceUp: Bool = false
     var isOnHand: Bool = false
+    var hasReverseEffect: Bool = false
+    var hasCleanEffect: Bool = false
+    var hasOnlyGreatersEffect: Bool = false
+    var hasOnlySmallsEffect: Bool = false
+    var value: Int
 }
 
 

@@ -15,6 +15,34 @@ class PintoCardGame: ObservableObject {
         return PintoGame<String>()
     }
     
+    //MARK: Playabilty
+    static func startGame() {
+        
+        var initialCard = selectMinimalCard()
+        
+    }
+    
+    func resetPintoGame(){
+        model = PintoCardGame.createPintoGame()
+    }
+    
+    func createTurns() {
+        #warning ("Create Turns")
+    }
+    
+    static func selectMinimalCard() -> Card {
+        #warning ("Select minimal card to begin with")
+    }
+    
+    func drawCard() {
+        #warning ("draw card to the on hand cards")
+    }
+    
+    func moveToDiscarted() {
+        #warning ("Make pick a card move to discarted")
+        #warning ("Make the discarted be bigger than the current discarted")
+    }
+    
     //MARK: - Access to the Model
     
     func getFaceDownCards(_ player: Players) -> Array<Card> {
