@@ -14,68 +14,63 @@ struct GameView: View {
         GeometryReader { proxy in
             VStack {
                 
-                ScrollView(showsIndicators: false) {
                     
                     LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { // View For Player 3
                         ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
                             CardView(card: card, size: proxy.size)
                         }
-                    }.frame(width: proxy.size.width)
+                    }
                     
                     
-                    LazyHGrid(rows: rows(size: proxy.size), spacing: proxy.size.width/CardConstants.spacingScale) { //For Player 2
+                    LazyHGrid(rows: rows(size: proxy.size), spacing: proxy.size.width/CardConstants.spacingScale) {
                         
-                        HStack{
+                        HStack{ //For Player 2
                             ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
                                 CardView(card: card, size: proxy.size)
                             }
                         }.rotationEffect(Angle(degrees: 90)).padding(.leading)
                         
-                        ZStack{ //For Cards on the deck and the discarted ones
-                            ForEach(viewModel.getInitialCards()){ card in
-                                CardView(card: card, size: proxy.size, includeShadow: false)
-                            }
-                        }.padding(.trailing)
-                        
-                        ZStack{
-                            ForEach(viewModel.getDiscartedCards()){ card in
-                                CardView(card: card, size: proxy.size, includeShadow: false)
-                            }
+                        HStack{
+                            //For all available Cards
+                            CardView(card: Card(id: 100, content: String.init(), value: 0), size: proxy.size, includeShadow: false)
+                                .padding(.trailing)
+                            
+                            //For discarted cards do not show all of them just the last one
+                                CardView(card: viewModel.getLastDiscarted(), size: proxy.size, includeShadow: false)
                         }
                         
                         
-                        HStack{
+                        HStack{ //For Player 2
                             ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
                                 CardView(card: card, size: proxy.size)
                             }
                         }.rotationEffect(Angle(degrees: 90)).padding(.trailing)
-                    }.frame(width: proxy.size.width).padding(.top)
+                    }.frame(width: proxy.size.width)
                     
                     LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { //For Player 1
                         ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
-                            CardView(card: card, size: proxy.size).onTapGesture {
-                                viewModel.chooseCard(card: card)
-                            }
-                            
+                            CardView(card: card, size: proxy.size)
                         }
                     }.frame(width: proxy.size.width)
                     .padding(.top, max(proxy.size.height,proxy.size.width) - max(proxy.size.height,proxy.size.width) * 0.95 )
-                }
+                
                 
                 
                 // Para las cartas que se comen del pozo y las cartas en mano
                 ScrollView(showsIndicators: false) {
-                    LazyVGrid(columns: columns(size: proxy.size), spacing: 5.0) {
-                        ForEach(viewModel.getFaceDownCards(Players.p1)){ card in
-                            CardView(card: card, size: proxy.size).onTapGesture {
+                    LazyHGrid(rows: rows(size: proxy.size), spacing: 5.0) {
+                        ForEach(viewModel.getCardsOnHand(Players.p1)){ card in
+                            CardView(card: card, size: proxy.size, includeShadow: false).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
                         }
                         
                     }
-                }.padding()
+                }.frame(width: proxy.size.width, height: proxy.size.height/5, alignment: .bottomTrailing)
+                //.background(Color.gray)
             }
         }
+        .background(Color.green)
     }
 }
 
@@ -110,14 +105,13 @@ struct CardView: View {
 
 func columns(size: CGSize) -> [GridItem] {
     [
-        GridItem(.adaptive(
-                    minimum: thumbnailSize(size: size).width))
+        GridItem(.fixed(200))
     ]
 }
 
 func rows(size: CGSize) -> [GridItem] {
     [
-        GridItem(.adaptive(
+        GridItem(.flexible(
                     minimum: thumbnailSize(size: size).height))
     ]
 }
@@ -128,7 +122,7 @@ private struct CardConstants {
     static let undealtHeight: CGFloat = 99
     static let undealtWidth = undealtHeight * aspectRatio
     static let scale: CGFloat = 0.7
-    static let spacingScale: CGFloat = 512
+    static let spacingScale: CGFloat = 500
     static let defaultSpacing: CGFloat = 5.0
 }
 
