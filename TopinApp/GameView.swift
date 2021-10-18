@@ -52,25 +52,27 @@ struct GameView: View {
                             CardView(card: card, size: proxy.size)
                         }
                     }.frame(width: proxy.size.width)
-                    .padding(.top, max(proxy.size.height,proxy.size.width) - max(proxy.size.height,proxy.size.width) * 0.95 )
+                    .padding(.top, max(proxy.size.height,proxy.size.width) - max(proxy.size.height,proxy.size.width) * 0.99 )
                 
                 
                 
                 // Para las cartas que se comen del pozo y las cartas en mano
                 ScrollView(showsIndicators: false) {
-                    LazyHGrid(rows: rows(size: proxy.size), spacing: 5.0) {
+                    LazyVGrid(columns: columns(size: proxy.size), spacing: CardConstants.defaultSpacing) {
                         ForEach(viewModel.getCardsOnHand(Players.p1)){ card in
                             CardView(card: card, size: proxy.size, includeShadow: false).onTapGesture {
                                 viewModel.chooseCard(card: card)
                             }
+                            .padding(.leading, 21.0)
+                            .padding(.trailing, 21.0)
                         }
-                        
                     }
-                }.frame(width: proxy.size.width, height: proxy.size.height/5, alignment: .bottomTrailing)
-                //.background(Color.gray)
+                }
+                .frame(width: proxy.size.width, height: proxy.size.height/5, alignment: .leading)
+                
             }
         }
-        .background(Color.green)
+        .background(Color(hue: 0.272, saturation: 0.665, brightness: 0.192)).edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -105,7 +107,7 @@ struct CardView: View {
 
 func columns(size: CGSize) -> [GridItem] {
     [
-        GridItem(.fixed(200))
+        GridItem(.adaptive(minimum: 54))
     ]
 }
 
