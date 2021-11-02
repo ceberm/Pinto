@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Identifiable {
+struct Card: Identifiable, Equatable {
     var id: Int
     var content: String
     var isFaceUp: Bool = false

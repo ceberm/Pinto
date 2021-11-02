@@ -17,16 +17,17 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     private(set) var initialDeck = Array<Card>()
     var discartedCards = Array<Card>()
     private(set) var players = Array<Player>()
+    private var numberOfPlayers = 2
     
-    mutating func pick(card: Card){
-        print("Card clicked! \(card)")
-        //card.isFaceUp = true
+    mutating func pick(card: Card, player: Players){
+        moveToDiscarted(card: card, player: player)
     }
     
     init() {
         do {
             shuffleCards()
-            try loadPlayers(4)
+            try loadPlayers(numberOfPlayers)
+            numberOfPlayers -= 1
         }
         catch  {
             print("issue unexpected")
@@ -49,15 +50,36 @@ struct PintoGame<CardContent> where CardContent: Equatable {
         players.append(Player(id: players.count))
     }
     
+    func getLastDiscarted() -> Card {
+        discartedCards.last!
+    }
+    
+    mutating func moveToDiscarted(card: Card) {
+        discartedCards.append(card)
+    }
+    
+    mutating func moveToDiscarted(card: Card, player: Players) {
+        discartedCards.append(card)
+        let index = getCardsOnHand(player).firstIndex(of: card)
+        if var replaceWith = initialDeck.first {
+            players[player.rawValue].onHandCards.remove(at: index!)
+            replaceWith.isFaceUp = true
+            players[player.rawValue].onHandCards.append(replaceWith)
+        }
+    }
+    
     func getFaceDownCards(_ player: Players) -> Array<Card> {
+        if(player.rawValue > numberOfPlayers) { return [] }
         return players[player.rawValue].faceDownCards
     }
     
     func getFaceUpCards(_ player: Players) -> Array<Card> {
+        if(player.rawValue > numberOfPlayers) { return [] }
         return players[player.rawValue].faceUpCards
     }
     
     func getCardsOnHand(_ player: Players) -> Array<Card> {
+        if(player.rawValue > numberOfPlayers) { return [] }
         return players[player.rawValue].onHandCards
     }
     

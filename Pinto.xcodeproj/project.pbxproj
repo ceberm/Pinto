@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB635B7F2676E353003E8F64 /* TopinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB635B7E2676E353003E8F64 /* TopinApp.swift */; };
+		DB635B7F2676E353003E8F64 /* Pinto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB635B7E2676E353003E8F64 /* Pinto.swift */; };
 		DB635B812676E353003E8F64 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB635B802676E353003E8F64 /* GameView.swift */; };
 		DB635B832676E356003E8F64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB635B822676E356003E8F64 /* Assets.xcassets */; };
 		DB635B862676E356003E8F64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB635B852676E356003E8F64 /* Preview Assets.xcassets */; };
@@ -16,7 +16,7 @@
 		DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69DFED2687CB4A006F20A0 /* PintoGame.swift */; };
 		DB829157269129CB00366D01 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB829156269129CB00366D01 /* Utilities.swift */; };
 		DB8500002708F84B00DCC8EE /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFFF2708F84B00DCC8EE /* Structs.swift */; };
-		DB85FFF92708DCCE00DCC8EE /* TopinAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFF82708DCCE00DCC8EE /* TopinAppTests.swift */; };
+		DB85FFF92708DCCE00DCC8EE /* PintoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFF82708DCCE00DCC8EE /* PintoTests.swift */; };
 		DB9F951826F0510600227103 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F951726F0510600227103 /* Enums.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DB635B7B2676E353003E8F64 /* TopinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB635B7E2676E353003E8F64 /* TopinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopinApp.swift; sourceTree = "<group>"; };
+		DB635B7B2676E353003E8F64 /* Pinto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB635B7E2676E353003E8F64 /* Pinto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pinto.swift; sourceTree = "<group>"; };
 		DB635B802676E353003E8F64 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		DB635B822676E356003E8F64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB635B852676E356003E8F64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -41,8 +41,8 @@
 		DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoCardGame.swift; sourceTree = "<group>"; };
 		DB69DFED2687CB4A006F20A0 /* PintoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoGame.swift; sourceTree = "<group>"; };
 		DB829156269129CB00366D01 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		DB85FFF62708DCCE00DCC8EE /* TopinAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TopinAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB85FFF82708DCCE00DCC8EE /* TopinAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopinAppTests.swift; sourceTree = "<group>"; };
+		DB85FFF62708DCCE00DCC8EE /* PintoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PintoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB85FFF82708DCCE00DCC8EE /* PintoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoTests.swift; sourceTree = "<group>"; };
 		DB85FFFF2708F84B00DCC8EE /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		DB9F951726F0510600227103 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,8 +68,8 @@
 		DB635B722676E353003E8F64 = {
 			isa = PBXGroup;
 			children = (
-				DB635B7D2676E353003E8F64 /* TopinApp */,
-				DB85FFF72708DCCE00DCC8EE /* TopinAppTests */,
+				DB635B7D2676E353003E8F64 /* Pinto */,
+				DB85FFF72708DCCE00DCC8EE /* PintoTests */,
 				DB635B7C2676E353003E8F64 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,16 +77,16 @@
 		DB635B7C2676E353003E8F64 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DB635B7B2676E353003E8F64 /* TopinApp.app */,
-				DB85FFF62708DCCE00DCC8EE /* TopinAppTests.xctest */,
+				DB635B7B2676E353003E8F64 /* Pinto.app */,
+				DB85FFF62708DCCE00DCC8EE /* PintoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DB635B7D2676E353003E8F64 /* TopinApp */ = {
+		DB635B7D2676E353003E8F64 /* Pinto */ = {
 			isa = PBXGroup;
 			children = (
-				DB635B7E2676E353003E8F64 /* TopinApp.swift */,
+				DB635B7E2676E353003E8F64 /* Pinto.swift */,
 				DB635B802676E353003E8F64 /* GameView.swift */,
 				DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */,
 				DB69DFED2687CB4A006F20A0 /* PintoGame.swift */,
@@ -98,7 +98,7 @@
 				DB9F951726F0510600227103 /* Enums.swift */,
 				DB85FFFF2708F84B00DCC8EE /* Structs.swift */,
 			);
-			path = TopinApp;
+			path = Pinto;
 			sourceTree = "<group>";
 		};
 		DB635B842676E356003E8F64 /* Preview Content */ = {
@@ -109,20 +109,20 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		DB85FFF72708DCCE00DCC8EE /* TopinAppTests */ = {
+		DB85FFF72708DCCE00DCC8EE /* PintoTests */ = {
 			isa = PBXGroup;
 			children = (
-				DB85FFF82708DCCE00DCC8EE /* TopinAppTests.swift */,
+				DB85FFF82708DCCE00DCC8EE /* PintoTests.swift */,
 			);
-			path = TopinAppTests;
+			path = PintoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DB635B7A2676E353003E8F64 /* TopinApp */ = {
+		DB635B7A2676E353003E8F64 /* Pinto */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB635B8A2676E356003E8F64 /* Build configuration list for PBXNativeTarget "TopinApp" */;
+			buildConfigurationList = DB635B8A2676E356003E8F64 /* Build configuration list for PBXNativeTarget "Pinto" */;
 			buildPhases = (
 				DB635B772676E353003E8F64 /* Sources */,
 				DB635B782676E353003E8F64 /* Frameworks */,
@@ -132,14 +132,14 @@
 			);
 			dependencies = (
 			);
-			name = TopinApp;
+			name = Pinto;
 			productName = TopinApp;
-			productReference = DB635B7B2676E353003E8F64 /* TopinApp.app */;
+			productReference = DB635B7B2676E353003E8F64 /* Pinto.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DB85FFF52708DCCE00DCC8EE /* TopinAppTests */ = {
+		DB85FFF52708DCCE00DCC8EE /* PintoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB85FFFE2708DCCE00DCC8EE /* Build configuration list for PBXNativeTarget "TopinAppTests" */;
+			buildConfigurationList = DB85FFFE2708DCCE00DCC8EE /* Build configuration list for PBXNativeTarget "PintoTests" */;
 			buildPhases = (
 				DB85FFF22708DCCE00DCC8EE /* Sources */,
 				DB85FFF32708DCCE00DCC8EE /* Frameworks */,
@@ -150,9 +150,9 @@
 			dependencies = (
 				DB85FFFB2708DCCE00DCC8EE /* PBXTargetDependency */,
 			);
-			name = TopinAppTests;
+			name = PintoTests;
 			productName = TopinAppTests;
-			productReference = DB85FFF62708DCCE00DCC8EE /* TopinAppTests.xctest */;
+			productReference = DB85FFF62708DCCE00DCC8EE /* PintoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -173,7 +173,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DB635B762676E353003E8F64 /* Build configuration list for PBXProject "TopinApp" */;
+			buildConfigurationList = DB635B762676E353003E8F64 /* Build configuration list for PBXProject "Pinto" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -186,8 +186,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DB635B7A2676E353003E8F64 /* TopinApp */,
-				DB85FFF52708DCCE00DCC8EE /* TopinAppTests */,
+				DB635B7A2676E353003E8F64 /* Pinto */,
+				DB85FFF52708DCCE00DCC8EE /* PintoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -220,7 +220,7 @@
 				DB69DFEA2687C204006F20A0 /* Array+Identifiable.swift in Sources */,
 				DB635B812676E353003E8F64 /* GameView.swift in Sources */,
 				DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */,
-				DB635B7F2676E353003E8F64 /* TopinApp.swift in Sources */,
+				DB635B7F2676E353003E8F64 /* Pinto.swift in Sources */,
 				DB9F951826F0510600227103 /* Enums.swift in Sources */,
 				DB829157269129CB00366D01 /* Utilities.swift in Sources */,
 				DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */,
@@ -231,7 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB85FFF92708DCCE00DCC8EE /* TopinAppTests.swift in Sources */,
+				DB85FFF92708DCCE00DCC8EE /* PintoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +240,7 @@
 /* Begin PBXTargetDependency section */
 		DB85FFFB2708DCCE00DCC8EE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DB635B7A2676E353003E8F64 /* TopinApp */;
+			target = DB635B7A2676E353003E8F64 /* Pinto */;
 			targetProxy = DB85FFFA2708DCCE00DCC8EE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -367,17 +367,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"TopinApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Pinto/Preview Content\"";
 				DEVELOPMENT_TEAM = VX3TX38PUL;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = TopinApp/Info.plist;
+				INFOPLIST_FILE = Pinto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ceberm.cs193p.TopinApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ceberm.Pinto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -389,17 +390,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"TopinApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Pinto/Preview Content\"";
 				DEVELOPMENT_TEAM = VX3TX38PUL;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = TopinApp/Info.plist;
+				INFOPLIST_FILE = Pinto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ceberm.cs193p.TopinApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ceberm.Pinto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -427,7 +429,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TopinApp.app/TopinApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pinto.app/Pinto";
 			};
 			name = Debug;
 		};
@@ -452,14 +454,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TopinApp.app/TopinApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pinto.app/Pinto";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DB635B762676E353003E8F64 /* Build configuration list for PBXProject "TopinApp" */ = {
+		DB635B762676E353003E8F64 /* Build configuration list for PBXProject "Pinto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB635B882676E356003E8F64 /* Debug */,
@@ -468,7 +470,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB635B8A2676E356003E8F64 /* Build configuration list for PBXNativeTarget "TopinApp" */ = {
+		DB635B8A2676E356003E8F64 /* Build configuration list for PBXNativeTarget "Pinto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB635B8B2676E356003E8F64 /* Debug */,
@@ -477,7 +479,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB85FFFE2708DCCE00DCC8EE /* Build configuration list for PBXNativeTarget "TopinAppTests" */ = {
+		DB85FFFE2708DCCE00DCC8EE /* Build configuration list for PBXNativeTarget "PintoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB85FFFC2708DCCE00DCC8EE /* Debug */,

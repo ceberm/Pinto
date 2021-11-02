@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DB635B7A2676E353003E8F64"
-               BuildableName = "TopinApp.app"
-               BlueprintName = "TopinApp"
-               ReferencedContainer = "container:TopinApp.xcodeproj">
+               BuildableName = "Pinto.app"
+               BlueprintName = "Pinto"
+               ReferencedContainer = "container:Pinto.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DB85FFF52708DCCE00DCC8EE"
-               BuildableName = "TopinAppTests.xctest"
-               BlueprintName = "TopinAppTests"
-               ReferencedContainer = "container:TopinApp.xcodeproj">
+               BuildableName = "PintoTests.xctest"
+               BlueprintName = "PintoTests"
+               ReferencedContainer = "container:Pinto.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DB635B7A2676E353003E8F64"
-            BuildableName = "TopinApp.app"
-            BlueprintName = "TopinApp"
-            ReferencedContainer = "container:TopinApp.xcodeproj">
+            BuildableName = "Pinto.app"
+            BlueprintName = "Pinto"
+            ReferencedContainer = "container:Pinto.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DB635B7A2676E353003E8F64"
-            BuildableName = "TopinApp.app"
-            BlueprintName = "TopinApp"
-            ReferencedContainer = "container:TopinApp.xcodeproj">
+            BuildableName = "Pinto.app"
+            BlueprintName = "Pinto"
+            ReferencedContainer = "container:Pinto.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

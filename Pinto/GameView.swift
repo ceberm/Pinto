@@ -13,7 +13,7 @@ struct GameView: View {
         GeometryReader { proxy in
             VStack {
             
-                Player3Cards(viewModel: viewModel, proxy: proxy)
+                Player2Cards(viewModel: viewModel, proxy: proxy)
                     
                 RotatedCards(viewModel: viewModel, proxy: proxy)
                 
@@ -21,11 +21,9 @@ struct GameView: View {
                    
                 CardsOnHand(viewModel: viewModel, proxy: proxy)
                 
-                
-                
             }
         }
-        .background(Color(hue: 0.272, saturation: 0.665, brightness: 0.192)).edgesIgnoringSafeArea(.all)
+        .background(LinearGradient(colors: [Color(hue: 0.272, saturation: 0.665, brightness: 0.192), Color(hue: 0.20, saturation: 0.62, brightness: 0.250)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 1, y: 1))).edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -79,8 +77,8 @@ struct RotatedCards: View {
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: proxy.size.width/CardConstants.spacingScale) {
             
-            HStack{ //For Player 2
-                ForEach(viewModel.getFaceUpCards(Players.p2)){ card in
+            HStack{ //For Player 3
+                ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
                     CardView(card: card, size: proxy.size)
                 }
             }.rotationEffect(Angle(degrees: 90)).padding(.leading)
@@ -95,7 +93,7 @@ struct RotatedCards: View {
             }
             
             
-            HStack{ //For Player 2
+            HStack{ //For Player 4
                 ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
                     CardView(card: card, size: proxy.size)
                 }
@@ -104,13 +102,13 @@ struct RotatedCards: View {
     }
 }
 
-struct Player3Cards: View {
+struct Player2Cards: View {
     @ObservedObject var viewModel: PintoCardGame
     var proxy: GeometryProxy
     
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { // View For Player 3
-            ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
+            ForEach(viewModel.getFaceUpCards(.p2)){ card in
                 CardView(card: card, size: proxy.size)
             }
         }
@@ -126,9 +124,9 @@ struct CardsOnHand: View {
         // Para las cartas que se comen del pozo y las cartas en mano
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns(size: proxy.size), spacing: CardConstants.defaultSpacing) {
-                ForEach(viewModel.getCardsOnHand(Players.p1)){ card in
+                ForEach(viewModel.getCardsOnHand(.p1)){ card in
                     CardView(card: card, size: proxy.size, includeShadow: false).onTapGesture {
-                        viewModel.chooseCard(card: card)
+                        viewModel.chooseCard(card: card, player: .p1)
                     }
                     .padding(.leading, 21.0)
                     .padding(.trailing, 21.0)
@@ -158,7 +156,7 @@ private struct CardConstants {
     static let borderWidth: CGFloat = 0.55
     static let undealtHeight: CGFloat = 99
     static let undealtWidth = undealtHeight * aspectRatio
-    static let scale: CGFloat = 0.7
+    static let scale: CGFloat = 0.8
     static let spacingScale: CGFloat = 500
     static let defaultSpacing: CGFloat = 5.0
 }
@@ -238,7 +236,11 @@ func thumbnailSize(size: CGSize) -> CGSize {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(viewModel: PintoCardGame()).preferredColorScheme(.light)
+        if #available(iOS 15.0, *) {
+            GameView(viewModel: PintoCardGame()).preferredColorScheme(.light).previewInterfaceOrientation(.portrait)
+        } else {
+            GameView(viewModel: PintoCardGame()).preferredColorScheme(.light)
+        }
         //.previewLayout(.fixed(width: 812, height: 375))
         
     }
