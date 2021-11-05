@@ -20,7 +20,13 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     private var numberOfPlayers = 2
     
     mutating func pick(card: Card, player: Players){
-        moveToDiscarted(card: card, player: player)
+        let lastCart = getLastDiscarted()
+        if(card >= lastCart || card.hasCleanEffect || card.hasReverseEffect){
+            moveToDiscarted(card: card, player: player)
+            if card.hasCleanEffect {
+                discartedCards.removeAll()
+            }
+        }
     }
     
     init() {

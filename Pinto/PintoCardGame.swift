@@ -70,11 +70,7 @@ class PintoCardGame: ObservableObject {
     //MARK: - Intent(s)
     
     func chooseCard(card: Card, player: Players){
-        let lastCart = getLastDiscarted()
-        if(card >= lastCart){
-            model.pick(card: card, player: player)
-        }
-        
+        model.pick(card: card, player: player)
     }
     
     
