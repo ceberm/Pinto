@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import TopinApp
+@testable import Pinto
 
 class PintoTests: XCTestCase {
 
@@ -27,11 +27,7 @@ class PintoTests: XCTestCase {
         
         XCTAssertTrue(model.players.count == 2)
         
-        XCTAssertTrue(model.getFaceDownCards(.p1).count == 3)
-        
         XCTAssertTrue(model.getFaceUpCards(.p1).count == 3)
-        
-        XCTAssertTrue(model.getFaceDownCards(.p2).count == 3)
         
         XCTAssertTrue(model.getFaceUpCards(.p2).count == 3)
         

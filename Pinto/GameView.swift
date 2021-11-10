@@ -8,19 +8,35 @@
 import SwiftUI
 
 struct GameView: View {
-    @ObservedObject var viewModel: PintoCardGame
+    @EnvironmentObject var viewData: PintoGame<String>
+    @State private var showingCardPicker = false
+    
     var body: some View {
+        
         GeometryReader { proxy in
             VStack {
             
-                Player2Cards(viewModel: viewModel, proxy: proxy)
+                Player2Cards(proxy: proxy)
                     
-                RotatedCards(viewModel: viewModel, proxy: proxy)
+                RotatedCards(proxy: proxy)
                 
-                Player1Cards(viewModel: viewModel, proxy: proxy)
+                Player1Cards(proxy: proxy)
+                
+                CardsOnHand(proxy: proxy)
                    
-                CardsOnHand(viewModel: viewModel, proxy: proxy)
-                
+//                Button(action: { showingCardPicker.toggle() }) {
+//                    Image(systemName: "square.stack.3d.forward.dottedline.fill")
+//                        .accessibilityLabel("User Profile")
+//                }
+//
+//                    .sheet(isPresented: $showingCardPicker) {
+//
+//                        Image(systemName: "gobackward")
+//                            .accessibilityLabel("User Profile")
+//                            .onTapGesture {
+//                                showingCardPicker.toggle()
+//                            }
+//                    }.animation(.easeInOut)
             }
         }
         .background(LinearGradient(colors: [Color(hue: 0.272, saturation: 0.665, brightness: 0.192), Color(hue: 0.20, saturation: 0.62, brightness: 0.250)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 1, y: 1))).edgesIgnoringSafeArea(.all)
@@ -57,12 +73,12 @@ struct CardView: View {
 }
 
 struct Player1Cards: View {
-    @ObservedObject var viewModel: PintoCardGame
+    @EnvironmentObject var viewData: PintoGame<String>
     var proxy: GeometryProxy
     
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { //For Player 1
-            ForEach(viewModel.getFaceUpCards(Players.p1)){ card in
+            ForEach(viewData.getFaceUpCards(Players.p1)){ card in
                 CardView(card: card, size: proxy.size)
             }
         }.frame(width: proxy.size.width)
@@ -71,17 +87,17 @@ struct Player1Cards: View {
 }
 
 struct RotatedCards: View {
-    @ObservedObject var viewModel: PintoCardGame
+    @EnvironmentObject var viewData: PintoGame<String>
     var proxy: GeometryProxy
     
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: proxy.size.width/CardConstants.spacingScale) {
             
-            HStack{ //For Player 3
-                ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
-                    CardView(card: card, size: proxy.size)
-                }
-            }.rotationEffect(Angle(degrees: 90)).padding(.leading)
+//            HStack{ //For Player 3
+//                ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
+//                    CardView(card: card, size: proxy.size)
+//                }
+//            }.rotationEffect(Angle(degrees: 90)).padding(.leading)
             
             HStack{
                 //For all available Cards
@@ -89,26 +105,26 @@ struct RotatedCards: View {
                     .padding(.trailing)
                 
                 //For discarted cards do not show all of them just the last one
-                    CardView(card: viewModel.getLastDiscarted(), size: proxy.size, includeShadow: false)
+                CardView(card: viewData.cardToBeat, size: proxy.size, includeShadow: false)
             }
             
             
-            HStack{ //For Player 4
-                ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
-                    CardView(card: card, size: proxy.size)
-                }
-            }.rotationEffect(Angle(degrees: 90)).padding(.trailing)
+//            HStack{ //For Player 4
+//                ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
+//                    CardView(card: card, size: proxy.size)
+//                }
+//            }.rotationEffect(Angle(degrees: 90)).padding(.trailing)
         }.frame(width: proxy.size.width)
     }
 }
 
 struct Player2Cards: View {
-    @ObservedObject var viewModel: PintoCardGame
+    @EnvironmentObject var viewData: PintoGame<String>
     var proxy: GeometryProxy
     
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { // View For Player 3
-            ForEach(viewModel.getFaceUpCards(.p2)){ card in
+            ForEach(viewData.getFaceUpCards(.p2)){ card in
                 CardView(card: card, size: proxy.size)
             }
         }
@@ -117,23 +133,24 @@ struct Player2Cards: View {
 
 struct CardsOnHand: View {
     
-    @ObservedObject var viewModel: PintoCardGame
+    @EnvironmentObject var viewData: PintoGame<String>
+    
     var proxy: GeometryProxy
     
     var body: some View {
         // Para las cartas que se comen del pozo y las cartas en mano
         ScrollView(showsIndicators: false) {
-            LazyVGrid(columns: columns(size: proxy.size), spacing: CardConstants.defaultSpacing) {
-                ForEach(viewModel.getCardsOnHand(.p1)){ card in
+            LazyVGrid(columns: columns(size: proxy.size), spacing: CardConstants.defaultSpacing/CardConstants.spacingScale) {
+                ForEach(viewData.getCardsOnHand(.p1)) { card in
                     CardView(card: card, size: proxy.size, includeShadow: false).onTapGesture {
-                        viewModel.chooseCard(card: card, player: .p1)
-                    }
-                    .padding(.leading, 21.0)
-                    .padding(.trailing, 21.0)
+                                    viewData.pick(card: card, player: Players.p1)
+                                }
+                    
                 }
             }
         }
-        .frame(width: proxy.size.width, height: proxy.size.height/5, alignment: .leading)
+        .padding()
+        //.frame(width: proxy.size.width, height: proxy.size.height/5, alignment: .leading)
     }
 }
 
@@ -237,9 +254,11 @@ func thumbnailSize(size: CGSize) -> CGSize {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
-            GameView(viewModel: PintoCardGame()).preferredColorScheme(.light).previewInterfaceOrientation(.portrait)
+            GameView().preferredColorScheme(.light).previewInterfaceOrientation(.portrait)
+                .environmentObject(PintoGame<String>())
         } else {
-            GameView(viewModel: PintoCardGame()).preferredColorScheme(.light)
+            GameView().preferredColorScheme(.light)
+                .environmentObject(PintoGame<String>())
         }
         //.previewLayout(.fixed(width: 812, height: 375))
         

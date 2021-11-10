@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct PintoGame<CardContent> where CardContent: Equatable {
+final class PintoGame<CardContent>: ObservableObject where CardContent: Equatable {
     private var default_cards:[String] = [
         "U+1F0A1", "U+1F0A2", "U+1F0A3", "U+1F0A4", "U+1F0A5", "U+1F0A6", "U+1F0A7", "U+1F0A8", "U+1F0A9", "U+1F0AA", "U+1F0AB","U+1F0AD", "U+1F0AE",
         "U+1F0B1", "U+1F0B2", "U+1F0B3", "U+1F0B4", "U+1F0B5", "U+1F0B6", "U+1F0B7", "U+1F0B8", "U+1F0B9", "U+1F0BA", "U+1F0BB", "U+1F0BD", "U+1F0BE",
@@ -16,80 +17,132 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     
     private(set) var initialDeck = Array<Card>()
     var discartedCards = Array<Card>()
-    private(set) var players = Array<Player>()
+    @Published private(set) var p1: Player?
+    @Published private(set) var p2: Player?
+    @Published private(set) var p3: Player?
+    @Published private(set) var p4: Player?
     private var numberOfPlayers = 2
+    private(set) var lastDiscarted: Card = Card.default
+    var cardToBeat: Card = Card.default {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     
-    mutating func pick(card: Card, player: Players){
-        let lastCart = getLastDiscarted()
-        if(card >= lastCart || card.hasCleanEffect || card.hasReverseEffect){
-            moveToDiscarted(card: card, player: player)
-            if card.hasCleanEffect {
-                discartedCards.removeAll()
+    func pick(card: Card, player: Players){
+        if(card >= cardToBeat || card.hasCleanEffect || card.hasReverseEffect){
+            switch player {
+                case .p1:
+                    moveToDiscarted(card: card, player: &p1!)
+                case .p2:
+                    moveToDiscarted(card: card, player: &p2!)
+                case .p3:
+                    moveToDiscarted(card: card, player: &p3!)
+                case .p4:
+                    moveToDiscarted(card: card, player: &p4!)
             }
+        }
+    
+        if card.hasCleanEffect {
+            discartedCards.removeAll()
         }
     }
     
     init() {
-        do {
-            shuffleCards()
-            try loadPlayers(numberOfPlayers)
-            numberOfPlayers -= 1
-        }
-        catch  {
-            print("issue unexpected")
-        }
-        
+        startGame()
     }
     
-    mutating func loadPlayers(_ numberOfPlayers: Int) throws {
+    //MARK: Playabilty
+    func startGame() {
+        do {
+            shuffleCards()
+            try loadPlayers(2)
+        } catch PintoModelError.deckIsEmpty {
+            print("Error loading model, deck of cards is empty")
+        } catch PintoModelError.invalidNumberOfPlayers {
+            print("The number of players selected is invalid")
+        } catch {
+            print("Unexpected error: \(error).")
+        }
+        selectMinimalCard()
+    }
+    
+    func loadPlayers(_ numberOfPlayers: Int) throws {
         if(numberOfPlayers >= 2){
-            for num in 0..<numberOfPlayers {
+            for num in 1...numberOfPlayers {
                 let player = try createPlayerWithCards(num)
-                players.append(player)
+                switch num {
+                case 1:
+                    p1 = player
+                case 2:
+                    p2 = player
+                case 3:
+                    p3 = player
+                case 4:
+                    p4 = player
+                default:
+                    throw PintoModelError.invalidNumberOfPlayers
+                }
             }
         } else {
             throw PintoModelError.invalidNumberOfPlayers
         }
     }
     
-    mutating func loadNewPlayer(_ numberOfPlayers: Int) throws{
-        players.append(Player(id: players.count))
-    }
-    
-    func getLastDiscarted() -> Card {
-        discartedCards.last!
-    }
-    
-    mutating func moveToDiscarted(card: Card) {
+    func moveToDiscarted(card: Card) {
         discartedCards.append(card)
     }
     
-    mutating func moveToDiscarted(card: Card, player: Players) {
+    func moveToDiscarted(card: Card, player: inout Player) {
         discartedCards.append(card)
-        let index = getCardsOnHand(player).firstIndex(of: card)
-        if var replaceWith = initialDeck.first {
-            players[player.rawValue].onHandCards.remove(at: index!)
-            replaceWith.isFaceUp = true
-            players[player.rawValue].onHandCards.append(replaceWith)
+        cardToBeat = card
+        guard let index = getCardsOnHand(player).firstIndex(of: card) else { return }
+        var newCard: Card? = initialDeck.remove(at: 0)
+        if (newCard != nil) {
+            newCard!.isFaceUp = true
+            newCard!.isOnHand = true
+            player.onHandCards[index] = newCard!
         }
     }
     
-    func getFaceDownCards(_ player: Players) -> Array<Card> {
-        if(player.rawValue > numberOfPlayers) { return [] }
-        return players[player.rawValue].faceDownCards
-    }
+//    func getFaceDownCards(_ player: Players) -> Array<Card> {
+//        return players[player.rawValue].faceDownCards
+//    }
     
     func getFaceUpCards(_ player: Players) -> Array<Card> {
-        if(player.rawValue > numberOfPlayers) { return [] }
-        return players[player.rawValue].faceUpCards
+        
+        switch player {
+        case .p1:
+            return p1?.faceUpCards ?? [Card]()
+        case .p2:
+            return p2?.faceUpCards ?? [Card]()
+        case .p3:
+            return p3?.faceUpCards ?? [Card]()
+        case .p4:
+            return p4?.faceUpCards ?? [Card]()
+        }
     }
     
     func getCardsOnHand(_ player: Players) -> Array<Card> {
-        if(player.rawValue > numberOfPlayers) { return [] }
-        return players[player.rawValue].onHandCards
+        
+        switch player {
+        case .p1:
+            return p1?.onHandCards ?? [Card]()
+        case .p2:
+            return p2?.onHandCards ?? [Card]()
+        case .p3:
+            return p3?.onHandCards ?? [Card]()
+        case .p4:
+            return p4?.onHandCards ?? [Card]()
+        }
+        
     }
     
-    mutating func createPlayerWithCards(_ id: Int) throws -> Player{
+    func getCardsOnHand(_ player: Player) -> Array<Card> {
+        return player.onHandCards
+    }
+    
+    func createPlayerWithCards(_ id: Int) throws -> Player{
         var player = Player(id: id)
         
         var randomCard = initialDeck.randomDrop()
@@ -126,8 +179,7 @@ struct PintoGame<CardContent> where CardContent: Equatable {
     }
     
     /// Creates Card Objects and assign them a value
-    mutating func shuffleCards(){
-        default_cards.shuffle()
+    func shuffleCards(){
         for cardIndex in 0..<default_cards.count {
             let ascciValue = default_cards[cardIndex]
             let someCharacter: Character = ascciValue.last!
@@ -154,5 +206,28 @@ struct PintoGame<CardContent> where CardContent: Equatable {
             }
             
         }
+        initialDeck.shuffle()
+    }
+    
+    /**
+     This method is to select the initial card and make the respective user draw one card from the available cards
+     */
+    func selectMinimalCard() {
+        #warning ("la carta mas pequena no se esta eliminando del respectivo arreglo. Y se le debe agregar otra nueva a las cartas en mano")
+        var min = [Card]()
+        for player in Players.allCases {
+            switch player {
+            case .p1:
+                min.append(p1?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
+            case .p2:
+                min.append(p2?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
+            case .p3:
+                min.append(p3?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
+            case .p4:
+                min.append(p4?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
+            }
+        }
+        cardToBeat = min.min(by: { c1, c2 in c2.value > c1.value })!
+        cardToBeat.isFaceUp = true
     }
 }

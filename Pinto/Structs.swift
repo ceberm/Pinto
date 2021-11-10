@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Identifiable, Equatable {
+struct Card: Identifiable, Equatable, Hashable {
     var id: Int
     var content: String
     var isFaceUp: Bool = false
@@ -17,6 +17,9 @@ struct Card: Identifiable, Equatable {
     var hasOnlyGreatersEffect: Bool = false
     var hasOnlySmallsEffect: Bool = false
     var value: Int
+    
+    ///This is a source of truth
+    static let `default` = Card(id: -1, content: "", value: 1000)
 }
 
 
@@ -25,4 +28,6 @@ struct Player: Identifiable {
     var faceUpCards: Array<Card> = []
     var faceDownCards: Array<Card> = []
     var onHandCards: Array<Card> = []
+    
+    static let `default` = Player(id: 0)
 }

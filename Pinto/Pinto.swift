@@ -11,7 +11,7 @@ import SwiftUI
 struct Pinto: App {
     var body: some Scene {
         WindowGroup {
-            GameView(viewModel: PintoCardGame())
+            GameView().environmentObject(PintoGame<String>())
         }
     }
 }

@@ -9,68 +9,72 @@ import SwiftUI
 
 ///View Model
 class PintoCardGame: ObservableObject {
-    @Published private var model: PintoGame<String> = createPintoGame()
+    @ObservedObject private var modelData: PintoGame<String> = PintoGame<String>()
     
-    private static func createPintoGame() -> PintoGame<String>{
+    private func createPintoGame() -> PintoGame<String>{
         return PintoGame<String>()
     }
     
-    init(){
+    init() {
         startGame()
     }
     
     //MARK: Playabilty
     func startGame() {
-        let initialCard = selectMinimalCard()
-        model.moveToDiscarted(card: initialCard)
+        do {
+            try modelData.loadPlayers(2)
+        } catch PintoModelError.deckIsEmpty {
+            print("Error loading model, deck of cards is empty")
+        } catch PintoModelError.invalidNumberOfPlayers {
+            print("The number of players selected is invalid")
+        } catch {
+            print("Unexpected error: \(error).")
+        }
+        modelData.selectMinimalCard()
     }
     
     func resetPintoGame(){
-        model = PintoCardGame.createPintoGame()
+        modelData = createPintoGame()
     }
     
     func createTurns() {
-        #warning ("Create Turns")
+        #warning ("Crear Turnos")
+        #warning ("Opcional: Investigar como ligar el View Model con el Model y el View para que refleje los cambios en la UI")
+        
     }
     
-    /**
-     This method is to select the initial card and make the respective user draw one card from the available cards
-     */
-    func selectMinimalCard() -> Card {
-        
-        model.getCardsOnHand(Players.p1)[0] as Card
-    }
     
     //MARK: - Access to the Model
     
-    func getFaceDownCards(_ player: Players) -> Array<Card> {
-        return model.getFaceDownCards(player)
-    }
     
     func getFaceUpCards(_ player: Players) -> Array<Card> {
-        return model.getFaceUpCards(player)
+        return modelData.getFaceUpCards(player)
     }
     
     func getCardsOnHand(_ player: Players) -> Array<Card> {
-        return model.getCardsOnHand(player)
+        return modelData.getCardsOnHand(player)
     }
     
     func getInitialCards() -> Array<Card> {
-        return model.initialDeck
+        return modelData.initialDeck
     }
     
     func getDiscartedCards() -> Array<Card> {
-        return model.discartedCards
+        return modelData.discartedCards
     }
     
     func getLastDiscarted() -> Card {
-        model.getLastDiscarted()
+        modelData.cardToBeat
     }
     
     //MARK: - Intent(s)
     
     func chooseCard(card: Card, player: Players){
-        model.pick(card: card, player: player)
+//        let lastCart = modelData.cardToBeat
+//        if(card >= lastCart || card.hasCleanEffect || card.hasReverseEffect){
+//            modelData.pick(card: card, player: player)
+//        }
+        modelData.pick(card: card, player: player)
     }
     
     

@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Players: Int {
-    case p1 = 0, p2 = 1, p3 = 2, p4 = 3
+enum Players: Int, CaseIterable {
+    case p1 = 1, p2 = 2, p3 = 3, p4 = 4
 }
 
 enum PintoModelError: Error {
