@@ -22,7 +22,6 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
     @Published private(set) var p3: Player?
     @Published private(set) var p4: Player?
     private var numberOfPlayers = 2
-    private(set) var lastDiscarted: Card = Card.default
     var cardToBeat: Card = Card.default {
         willSet {
             objectWillChange.send()
@@ -52,7 +51,7 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         startGame()
     }
     
-    //MARK: Playabilty
+    //MARK: Initialization Methods
     func startGame() {
         do {
             shuffleCards()
@@ -65,6 +64,80 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
             print("Unexpected error: \(error).")
         }
         selectMinimalCard()
+    }
+    
+    /// Creates Card Objects and assign them a value
+    func shuffleCards(){
+        for cardIndex in 0..<default_cards.count {
+            let ascciValue = default_cards[cardIndex]
+            let someCharacter: Character = ascciValue.last!
+            switch someCharacter {
+                case "1":
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 14))
+                case "2":
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasReverseEffect: true, value: 2))
+//                case "7":
+//                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasOnlySmallsEffect: true, value: 7))
+//                case "8":
+//                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasOnlyGreatersEffect: true, value: 8))
+                case "A":
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasCleanEffect: true, value: 10))
+                case "B":
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 11))
+                case "D":
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 12))
+                case "E":
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 13))
+                default:
+                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: Int(someCharacter.wholeNumberValue!)))
+                    
+            }
+            
+        }
+        initialDeck.shuffle()
+    }
+    
+    /**
+     Select the initial card and make the respective user draw one card from the available cards
+     **/
+    func selectMinimalCard() {
+        let min = getSetOfCards()
+        
+        cardToBeat = min.min(by: { c1, c2 in c2.value > c1.value })!
+        cardToBeat.isFaceUp = true
+        
+        if((p1?.onHandCards.contains(cardToBeat)) == true) {
+            moveToDiscarted(card: cardToBeat, player: &p1!)
+        }
+        if((p2?.onHandCards.contains(cardToBeat)) == true) {
+            moveToDiscarted(card: cardToBeat, player: &p2!)
+        }
+        if((p3?.onHandCards.contains(cardToBeat)) == true) {
+            moveToDiscarted(card: cardToBeat, player: &p3!)
+        }
+        if((p4?.onHandCards.contains(cardToBeat)) == true) {
+            moveToDiscarted(card: cardToBeat, player: &p4!)
+        }
+            
+    }
+    
+    private func getSetOfCards() -> Array<Card> {
+        var result = [Card]()
+        
+        result.append(contentsOf: (p1?.onHandCards.filter { card in
+            !card.hasCleanEffect && !card.hasReverseEffect
+        })!)
+        result.append(contentsOf: (p2?.onHandCards.filter { card in
+            !card.hasCleanEffect && !card.hasReverseEffect
+        })!)
+        result.append(contentsOf: (p3?.onHandCards.filter { card in
+            !card.hasCleanEffect && !card.hasReverseEffect
+        }) ?? [Card]())
+        result.append(contentsOf: (p4?.onHandCards.filter { card in
+            !card.hasCleanEffect && !card.hasReverseEffect
+        }) ?? [Card]())
+        
+        return result
     }
     
     func loadPlayers(_ numberOfPlayers: Int) throws {
@@ -89,14 +162,12 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         }
     }
     
-    func moveToDiscarted(card: Card) {
-        discartedCards.append(card)
-    }
+    //MARK: Playability Methods
     
     func moveToDiscarted(card: Card, player: inout Player) {
         discartedCards.append(card)
         cardToBeat = card
-        guard let index = getCardsOnHand(player).firstIndex(of: card) else { return }
+        guard let index = player.onHandCards.firstIndex(of: card) else { return }
         var newCard: Card? = initialDeck.remove(at: 0)
         if (newCard != nil) {
             newCard!.isFaceUp = true
@@ -178,56 +249,5 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         return player
     }
     
-    /// Creates Card Objects and assign them a value
-    func shuffleCards(){
-        for cardIndex in 0..<default_cards.count {
-            let ascciValue = default_cards[cardIndex]
-            let someCharacter: Character = ascciValue.last!
-            switch someCharacter {
-                case "1":
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 14))
-                case "2":
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasReverseEffect: true, value: 2))
-//                case "7":
-//                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasOnlySmallsEffect: true, value: 7))
-//                case "8":
-//                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasOnlyGreatersEffect: true, value: 8))
-                case "A":
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, hasCleanEffect: true, value: 10))
-                case "B":
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 11))
-                case "D":
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 12))
-                case "E":
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: 13))
-                default:
-                    initialDeck.append(Card(id: cardIndex, content: ascciValue, value: Int(someCharacter.wholeNumberValue!)))
-                    
-            }
-            
-        }
-        initialDeck.shuffle()
-    }
-    
-    /**
-     This method is to select the initial card and make the respective user draw one card from the available cards
-     */
-    func selectMinimalCard() {
-        #warning ("la carta mas pequena no se esta eliminando del respectivo arreglo. Y se le debe agregar otra nueva a las cartas en mano")
-        var min = [Card]()
-        for player in Players.allCases {
-            switch player {
-            case .p1:
-                min.append(p1?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
-            case .p2:
-                min.append(p2?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
-            case .p3:
-                min.append(p3?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
-            case .p4:
-                min.append(p4?.onHandCards.min { c1, c2 in c2.value > c1.value }! ?? Card.default)
-            }
-        }
-        cardToBeat = min.min(by: { c1, c2 in c2.value > c1.value })!
-        cardToBeat.isFaceUp = true
-    }
+
 }

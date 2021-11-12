@@ -23,10 +23,6 @@ class PintoTests: XCTestCase {
         
         let model = PintoGame<String>()
         
-        XCTAssertNotNil(model.players)
-        
-        XCTAssertTrue(model.players.count == 2)
-        
         XCTAssertTrue(model.getFaceUpCards(.p1).count == 3)
         
         XCTAssertTrue(model.getFaceUpCards(.p2).count == 3)

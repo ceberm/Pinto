@@ -40,6 +40,7 @@ class PintoCardGame: ObservableObject {
     func createTurns() {
         #warning ("Crear Turnos")
         #warning ("Opcional: Investigar como ligar el View Model con el Model y el View para que refleje los cambios en la UI")
+        //https://swiftwithmajid.com/2020/02/05/building-viewmodels-with-combine-framework/
         
     }
     

@@ -56,17 +56,24 @@ struct CardView: View {
                     .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
                     .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
                     .shadow(radius: 8)
+                    .clipped(antialiased: true)
+                    .contentShape(Rectangle())
             }else {
                 Image(card.content)
                     .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
                     .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
                     .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.3))
+                    .clipped(antialiased: true)
+                    .contentShape(Rectangle())
             }
         }else {
             Image("facedown")
                 .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
                 .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
                 .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
+                .clipped(antialiased: true)
+                .contentShape(Rectangle())
+            
         }
         
     }
@@ -78,7 +85,7 @@ struct Player1Cards: View {
     
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { //For Player 1
-            ForEach(viewData.getFaceUpCards(Players.p1)){ card in
+            ForEach(viewData.getFaceUpCards(.p1)){ card in
                 CardView(card: card, size: proxy.size)
             }
         }.frame(width: proxy.size.width)
@@ -124,7 +131,7 @@ struct Player2Cards: View {
     
     var body: some View{
         LazyHGrid(rows: rows(size: proxy.size), spacing: CardConstants.defaultSpacing) { // View For Player 3
-            ForEach(viewData.getFaceUpCards(.p2)){ card in
+            ForEach(viewData.getCardsOnHand(.p2)){ card in
                 CardView(card: card, size: proxy.size)
             }
         }
