@@ -27,6 +27,8 @@ class PintoTests: XCTestCase {
         
         XCTAssertTrue(model.getFaceUpCards(.p2).count == 3)
         
+        
+        
     }
 
 }

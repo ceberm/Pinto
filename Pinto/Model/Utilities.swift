@@ -57,3 +57,21 @@ extension URL {
         return url
     }
 }
+
+
+func columns(size: CGSize) -> [GridItem] {
+    [
+        GridItem(.adaptive(minimum: 54))
+    ]
+}
+
+func rows(size: CGSize) -> [GridItem] {
+    [
+        GridItem(.flexible(
+                    minimum: thumbnailSize(size: size).height))
+    ]
+}
+
+func thumbnailSize(size: CGSize) -> CGSize {
+    return CGSize(width: CardConstants.undealtWidth * CardConstants.scale, height: CardConstants.undealtHeight * CardConstants.scale)
+}

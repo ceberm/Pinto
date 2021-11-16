@@ -18,6 +18,10 @@
 		DB8500002708F84B00DCC8EE /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFFF2708F84B00DCC8EE /* Structs.swift */; };
 		DB85FFF92708DCCE00DCC8EE /* PintoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85FFF82708DCCE00DCC8EE /* PintoTests.swift */; };
 		DB9F951826F0510600227103 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F951726F0510600227103 /* Enums.swift */; };
+		DBFAD64527434C1300790F85 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFAD64427434C1300790F85 /* CardView.swift */; };
+		DBFAD64727434CF200790F85 /* RotatedCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFAD64627434CF200790F85 /* RotatedCards.swift */; };
+		DBFAD64927434F0800790F85 /* CardsOnHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFAD64827434F0800790F85 /* CardsOnHand.swift */; };
+		DBFAD64B2743525100790F85 /* CardsOnTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFAD64A2743525100790F85 /* CardsOnTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,10 @@
 		DB85FFF82708DCCE00DCC8EE /* PintoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintoTests.swift; sourceTree = "<group>"; };
 		DB85FFFF2708F84B00DCC8EE /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		DB9F951726F0510600227103 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		DBFAD64427434C1300790F85 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		DBFAD64627434CF200790F85 /* RotatedCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatedCards.swift; sourceTree = "<group>"; };
+		DBFAD64827434F0800790F85 /* CardsOnHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsOnHand.swift; sourceTree = "<group>"; };
+		DBFAD64A2743525100790F85 /* CardsOnTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsOnTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,16 +95,12 @@
 			isa = PBXGroup;
 			children = (
 				DB635B7E2676E353003E8F64 /* Pinto.swift */,
-				DB635B802676E353003E8F64 /* GameView.swift */,
 				DB69DFEB2687CA28006F20A0 /* PintoCardGame.swift */,
-				DB69DFED2687CB4A006F20A0 /* PintoGame.swift */,
 				DB635B822676E356003E8F64 /* Assets.xcassets */,
 				DB635B872676E356003E8F64 /* Info.plist */,
 				DB635B842676E356003E8F64 /* Preview Content */,
-				DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */,
-				DB829156269129CB00366D01 /* Utilities.swift */,
-				DB9F951726F0510600227103 /* Enums.swift */,
-				DB85FFFF2708F84B00DCC8EE /* Structs.swift */,
+				DBFAD64327434BC700790F85 /* Model */,
+				DBFAD64127434BAA00790F85 /* Views */,
 			);
 			path = Pinto;
 			sourceTree = "<group>";
@@ -115,6 +119,30 @@
 				DB85FFF82708DCCE00DCC8EE /* PintoTests.swift */,
 			);
 			path = PintoTests;
+			sourceTree = "<group>";
+		};
+		DBFAD64127434BAA00790F85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB635B802676E353003E8F64 /* GameView.swift */,
+				DBFAD64427434C1300790F85 /* CardView.swift */,
+				DBFAD64627434CF200790F85 /* RotatedCards.swift */,
+				DBFAD64827434F0800790F85 /* CardsOnHand.swift */,
+				DBFAD64A2743525100790F85 /* CardsOnTable.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DBFAD64327434BC700790F85 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB69DFE92687C204006F20A0 /* Array+Identifiable.swift */,
+				DB829156269129CB00366D01 /* Utilities.swift */,
+				DB9F951726F0510600227103 /* Enums.swift */,
+				DB85FFFF2708F84B00DCC8EE /* Structs.swift */,
+				DB69DFED2687CB4A006F20A0 /* PintoGame.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,13 +245,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB8500002708F84B00DCC8EE /* Structs.swift in Sources */,
+				DBFAD64727434CF200790F85 /* RotatedCards.swift in Sources */,
+				DBFAD64527434C1300790F85 /* CardView.swift in Sources */,
 				DB69DFEA2687C204006F20A0 /* Array+Identifiable.swift in Sources */,
 				DB635B812676E353003E8F64 /* GameView.swift in Sources */,
 				DB69DFEC2687CA28006F20A0 /* PintoCardGame.swift in Sources */,
 				DB635B7F2676E353003E8F64 /* Pinto.swift in Sources */,
 				DB9F951826F0510600227103 /* Enums.swift in Sources */,
+				DBFAD64927434F0800790F85 /* CardsOnHand.swift in Sources */,
 				DB829157269129CB00366D01 /* Utilities.swift in Sources */,
 				DB69DFEE2687CB4A006F20A0 /* PintoGame.swift in Sources */,
+				DBFAD64B2743525100790F85 /* CardsOnTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

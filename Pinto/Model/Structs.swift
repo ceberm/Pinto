@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Card: Identifiable, Equatable, Hashable {
     var id: Int
@@ -30,4 +31,14 @@ struct Player: Identifiable {
     var onHandCards: Array<Card> = []
     
     static let `default` = Player(id: 0)
+}
+
+struct CardConstants {
+    static let aspectRatio: CGFloat = 2/3
+    static let borderWidth: CGFloat = 0.55
+    static let undealtHeight: CGFloat = 99
+    static let undealtWidth = undealtHeight * aspectRatio
+    static let scale: CGFloat = 0.8
+    static let spacingScale: CGFloat = 500
+    static let defaultSpacing: CGFloat = 5.0
 }
