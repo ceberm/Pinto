@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: Card.default, size: CGSize(width: 100, height: 100))
+        CardView(card: Card.default, size: CGSize(width: 30, height: 50), includeShadow: false)
     }
 }
 
@@ -18,9 +18,9 @@ struct CardView: View {
     var card: Card
     var size: CGSize
     var includeShadow: Bool = true
+    
     var body: some View {
         
-        if(card.isFaceUp){
             if(includeShadow){
                 Image(card.content)
                     .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
@@ -30,22 +30,21 @@ struct CardView: View {
                     .clipped(antialiased: true)
                     .contentShape(Rectangle())
             }else {
+                if(card.id < 0){
+                    Image(systemName: card.content)
+                        .font(.system(size: 65, weight: .ultraLight))
+                        .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
+                        .foregroundColor(.orange)
+                        .rotationEffect(Angle(degrees: 90.0))
+                        
+                } else {
                 Image(card.content)
                     .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
                     .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
                     .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.3))
                     .clipped(antialiased: true)
                     .contentShape(Rectangle())
+                }
             }
-        }else {
-            Image("facedown")
-                .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
-                .frame(width: thumbnailSize(size: size).width, height: thumbnailSize(size: size).height)
-                .overlay(Rectangle().stroke(Color.gray, lineWidth: 1.9))
-                .clipped(antialiased: true)
-                .contentShape(Rectangle())
-            
-        }
-        
     }
 }

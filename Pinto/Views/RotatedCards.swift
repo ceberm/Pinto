@@ -29,7 +29,7 @@ struct RotatedCards: View {
             
             HStack{
                 //For all available Cards
-                CardView(card: Card(id: 100, content: String.init(), value: 0), size: size, includeShadow: false)
+                CardView(card: Card(id: 100, content: "facedown", value: 0), size: size, includeShadow: false)
                     .padding(.trailing)
                 
                 //For discarted cards do not show all of them just the last one

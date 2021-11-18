@@ -14,8 +14,11 @@ struct CardsOnTable: View {
     
     var body: some View{
         LazyHGrid(rows: rows(size: size), spacing: CardConstants.defaultSpacing) {
-            ForEach(viewData.getCardsOnHand(mPlayer)){ card in
-                CardView(card: card, size: size)
+            ForEach(viewData.getFaceUpCards(mPlayer)){ card in
+                CardView(card: card, size: size).onTapGesture {
+                    viewData.pickTableCard(card: card, player: mPlayer)
+                    
+                }
             }
         }
     }

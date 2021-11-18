@@ -20,7 +20,7 @@ struct Card: Identifiable, Equatable, Hashable {
     var value: Int
     
     ///This is a source of truth
-    static let `default` = Card(id: -1, content: "", value: 1000)
+    static let `default` = Card(id: -1, content: "rectangle.dashed", value: 1000)
 }
 
 

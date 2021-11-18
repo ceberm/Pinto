@@ -36,27 +36,6 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         }
     }
     
-    func pick(card: Card, player: Players){
-        if(card >= cardToBeat || card.hasCleanEffect || card.hasReverseEffect){
-            switch player {
-                case .p1:
-                    moveToDiscarted(card: card, player: &p1!)
-                case .p2:
-                    moveToDiscarted(card: card, player: &p2!)
-                case .p3:
-                    moveToDiscarted(card: card, player: &p3!)
-                case .p4:
-                    moveToDiscarted(card: card, player: &p4!)
-            }
-        }
-    
-        if card.hasCleanEffect {
-            discartedCards.removeAll()
-        }
-    }
-    
-   
-    
     //MARK: Initialization Methods
     func startGame() {
         do {
@@ -171,6 +150,26 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
     
     //MARK: Playability Methods
     
+    func pick(card: Card, player: Players){
+        if(card >= cardToBeat || card.hasCleanEffect || card.hasReverseEffect){
+            switch player {
+                case .p1:
+                    moveToDiscarted(card: card, player: &p1!)
+                case .p2:
+                    moveToDiscarted(card: card, player: &p2!)
+                case .p3:
+                    moveToDiscarted(card: card, player: &p3!)
+                case .p4:
+                    moveToDiscarted(card: card, player: &p4!)
+            }
+        }
+    
+        if card.hasCleanEffect {
+            discartedCards.removeAll()
+            cardToBeat = Card.default
+        }
+    }
+    
     func moveToDiscarted(card: Card, player: inout Player) {
         discartedCards.append(card)
         cardToBeat = card
@@ -181,6 +180,63 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
             newCard!.isOnHand = true
             player.onHandCards[index] = newCard!
         }
+    }
+    
+    func pickTableCard(card: Card, player: Players){
+        if(card >= cardToBeat || card.hasCleanEffect || card.hasReverseEffect){
+            switch player {
+                case .p1:
+                    discardTableCard(card: card, player: &p1!)
+                case .p2:
+                    discardTableCard(card: card, player: &p2!)
+                case .p3:
+                    discardTableCard(card: card, player: &p3!)
+                case .p4:
+                    discardTableCard(card: card, player: &p4!)
+            }
+        }
+    
+        if card.hasCleanEffect {
+            discartedCards.removeAll()
+        }
+    }
+    
+    func discardTableCard(card: Card, player: inout Player) {
+        if(validateMove(card: card, player: player)){
+            var tempCard = card
+            tempCard.isFaceUp = true
+            tempCard.isOnHand = true
+            discartedCards.append(tempCard)
+            cardToBeat = card
+            cardToBeat.isFaceUp = true
+            if(card.isFaceUp)
+            {
+                guard let index = player.faceUpCards.firstIndex(of: card) else { return }
+                let newCard: Card? = player.faceDownCards.remove(at: index)
+                if (newCard != nil) {
+                    player.faceUpCards[index] = newCard!
+                }
+            }else {
+                guard let index = player.faceUpCards.firstIndex(of: card) else { return }
+                player.faceUpCards.remove(at: index)
+                
+            }
+        }
+    }
+    
+    func validateMove(card: Card, player: Player) -> Bool {
+        var result = false
+        if(card.isOnHand){
+            result = true
+        }
+        else {
+            if(card.isFaceUp){
+                result = player.onHandCards.isEmpty
+            }else{
+                result = player.onHandCards.isEmpty && player.faceUpCards.isEmpty
+            }
+        }
+        return result
     }
     
     func createPlayerWithCards(_ id: Int) throws -> Player{
