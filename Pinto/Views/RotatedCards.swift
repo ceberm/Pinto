@@ -29,8 +29,16 @@ struct RotatedCards: View {
             
             HStack{
                 //For all available Cards
-                CardView(card: Card(id: 100, content: "facedown", value: 0), size: size, includeShadow: false)
-                    .padding(.trailing)
+                //If there is none then load the placeholder
+                
+                if(!viewData.initialDeck.isEmpty) {
+                    CardView(card: Card(id: 100, content: "facedown", value: 0), size: size, includeShadow: false)
+                        .padding(.trailing)
+                } else {
+                    CardView(card: Card.default, size: size, includeShadow: false)
+                        .padding(.trailing)
+                }
+                
                 
                 //For discarted cards do not show all of them just the last one
                 CardView(card: viewData.cardToBeat, size: size, includeShadow: false)

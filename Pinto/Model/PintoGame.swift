@@ -30,6 +30,10 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
     @Published private(set) var p3: Player?
     @Published private(set) var p4: Player?
     private var numberOfPlayers = 2
+    var playerTurn = 1
+    var movedThisTurn = false
+    var usedComodin = false
+    var goingBackwards = false
     var cardToBeat: Card = Card.default {
         willSet {
             objectWillChange.send()
@@ -84,6 +88,7 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
     
     /**
      Select the initial card and make the respective user draw one card from the available cards
+        In other words plays the first turn automatically
      **/
     func selectMinimalCard() {
         let min = getSetOfCards()
@@ -93,17 +98,21 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         
         if((p1?.onHandCards.contains(cardToBeat)) == true) {
             moveToDiscarted(card: cardToBeat, player: &p1!)
+            playerTurn = 1
         }
         if((p2?.onHandCards.contains(cardToBeat)) == true) {
             moveToDiscarted(card: cardToBeat, player: &p2!)
+            playerTurn = 2
         }
         if((p3?.onHandCards.contains(cardToBeat)) == true) {
             moveToDiscarted(card: cardToBeat, player: &p3!)
+            playerTurn = 3
         }
         if((p4?.onHandCards.contains(cardToBeat)) == true) {
             moveToDiscarted(card: cardToBeat, player: &p4!)
+            playerTurn = 4
         }
-            
+        startTurn()
     }
     
     /// Gets all the cards on hand and mixes to find the minium
@@ -150,6 +159,22 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
     
     //MARK: Playability Methods
     
+    func startTurn() {
+        usedComodin = false
+        movedThisTurn = false
+        if (!goingBackwards) {
+            if (playerTurn == numberOfPlayers) {
+                playerTurn = 1
+            } else { playerTurn = playerTurn + 1 }
+        }
+        else {
+            if (playerTurn - 1  > 0){
+                playerTurn = playerTurn - 1
+            } else { playerTurn = numberOfPlayers } //if (playerTurn <= 0)
+        }
+        
+    }
+    
     func pick(card: Card, player: Players){
         if(card >= cardToBeat || card.hasCleanEffect || card.hasReverseEffect){
             switch player {
@@ -167,12 +192,24 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         if card.hasCleanEffect {
             discartedCards.removeAll()
             cardToBeat = Card.default
+        }else { // If used a 2
+            if(usedComodin){
+                goingBackwards = card.hasReverseEffect
+            }
         }
+        
+        print("goingBackwards \(goingBackwards)")
+        print("playerTurn \(playerTurn)")
+        startTurn()
+        
     }
     
+    /// A player has discarted a card we must therefore draw a new card and ends the current turn
     func moveToDiscarted(card: Card, player: inout Player) {
         discartedCards.append(card)
         cardToBeat = card
+        usedComodin = card.hasCleanEffect || card.hasReverseEffect
+        movedThisTurn = true
         guard let index = player.onHandCards.firstIndex(of: card) else { return }
         var newCard: Card? = initialDeck.remove(at: 0)
         if (newCard != nil) {
