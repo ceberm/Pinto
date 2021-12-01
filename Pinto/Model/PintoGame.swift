@@ -188,20 +188,18 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
                     moveToDiscarted(card: card, player: &p4!)
             }
         }
-    
-        if card.hasCleanEffect {
-            discartedCards.removeAll()
-            cardToBeat = Card.default
-        }else { // If used a 2
-            if(usedComodin){
-                goingBackwards = card.hasReverseEffect
+        if usedComodin {
+            if card.hasCleanEffect {
+                discartedCards.removeAll()
+                cardToBeat = Card.default
+            } else { // If used a 2
+                goingBackwards = !goingBackwards
             }
         }
         
-        print("goingBackwards \(goingBackwards)")
-        print("playerTurn \(playerTurn)")
         startTurn()
-        
+        print("2. goingBackwards \(goingBackwards)")
+        print("2. playerTurn \(playerTurn)")
     }
     
     /// A player has discarted a card we must therefore draw a new card and ends the current turn
