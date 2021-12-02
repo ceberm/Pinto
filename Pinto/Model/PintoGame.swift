@@ -210,10 +210,13 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         movedThisTurn = true
         guard let index = player.onHandCards.firstIndex(of: card) else { return }
         var newCard: Card? = initialDeck.remove(at: 0)
-        if (newCard != nil) {
+        if (newCard != nil && player.onHandCards.count <= 3) {
             newCard!.isFaceUp = true
             newCard!.isOnHand = true
             player.onHandCards[index] = newCard!
+        }
+        else {
+            player.onHandCards.remove(at: index)
         }
     }
     
@@ -308,6 +311,21 @@ final class PintoGame<CardContent>: ObservableObject where CardContent: Equatabl
         player.faceDownCards.append(randomCard!)
         
         return player
+    }
+    
+    func assignDiscartedCards(player: Players) {
+        switch player {
+            case .p1:
+                p1?.onHandCards.append(contentsOf: discartedCards)
+            case .p2:
+                p1?.onHandCards.append(contentsOf: discartedCards)
+            case .p3:
+                p1?.onHandCards.append(contentsOf: discartedCards)
+            case .p4:
+                p1?.onHandCards.append(contentsOf: discartedCards)
+        }
+        discartedCards.removeAll()
+        cardToBeat = Card.default
     }
     
     // MARK: Accesors

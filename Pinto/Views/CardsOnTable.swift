@@ -17,7 +17,6 @@ struct CardsOnTable: View {
             ForEach(viewData.getFaceUpCards(mPlayer)){ card in
                 CardView(card: card, size: size).onTapGesture {
                     viewData.pickTableCard(card: card, player: mPlayer)
-                    
                 }
             }
         }

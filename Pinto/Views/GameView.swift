@@ -23,6 +23,10 @@ struct GameView: View {
                 CardsOnTable(mPlayer: .p1, size: proxy.size)
                 
                 CardsOnHand(mPlayer: .p1, size: proxy.size)
+                
+                Button(action: {viewData.assignDiscartedCards(player: .p1)}) {
+                    Image(systemName: "plus.viewfinder").font(.largeTitle).foregroundColor(.orange)
+                }.padding(.leading, 144)
                    
 //                Button(action: { showingCardPicker.toggle() }) {
 //                    Image(systemName: "square.stack.3d.forward.dottedline.fill")
@@ -116,7 +120,7 @@ struct GameView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
-            GameView().preferredColorScheme(.light).previewInterfaceOrientation(.portrait)
+            GameView().preferredColorScheme(.light).previewInterfaceOrientation(.landscapeLeft)
                 .environmentObject(PintoGame<String>())
         } else {
             GameView().preferredColorScheme(.light)

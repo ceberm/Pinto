@@ -21,11 +21,7 @@ struct RotatedCards: View {
     var body: some View{
         LazyHGrid(rows: rows(size: size), spacing: size.width/CardConstants.spacingScale) {
             
-//            HStack{ //For Player 3
-//                ForEach(viewModel.getFaceUpCards(Players.p3)){ card in
-//                    CardView(card: card, size: proxy.size)
-//                }
-//            }.rotationEffect(Angle(degrees: 90)).padding(.leading)
+            CardsOnTable(mPlayer: .p3, size: size).rotationEffect(Angle(degrees: 90)).padding(.leading)
             
             HStack{
                 //For all available Cards
@@ -45,11 +41,7 @@ struct RotatedCards: View {
             }
             
             
-//            HStack{ //For Player 4
-//                ForEach(viewModel.getFaceUpCards(Players.p4)){ card in
-//                    CardView(card: card, size: proxy.size)
-//                }
-//            }.rotationEffect(Angle(degrees: 90)).padding(.trailing)
+            CardsOnTable(mPlayer: .p4, size: size).rotationEffect(Angle(degrees: 90)).padding(.leading)
         }.frame(width: size.width)
     }
 }
